@@ -1,0 +1,76 @@
+import { Demo } from './components/Demo';
+import { ActionsDemo } from './components/ActionsDemo';
+
+# Action buttons
+
+Pass an `action` to render a clickable button to the right of the message. Clicking the action button fires `onClose` with `reason: 'instructed'` and dismisses the toast.
+
+<Demo>
+  <ActionsDemo />
+</Demo>
+
+```tsx
+import { useSnackbar } from '@monetr/notify';
+
+function Example() {
+  const { enqueueSnackbar } = useSnackbar();
+  return (
+    <button
+      onClick={() =>
+        enqueueSnackbar('Item deleted', {
+          variant: 'success',
+          persist: true,
+          action: <span>Undo</span>,
+          onClose: (_event, reason, key) => {
+            if (reason === 'instructed') {
+              console.log('Undo clicked or × clicked', key);
+            }
+          },
+        })
+      }
+    >
+      Delete
+    </button>
+  );
+}
+```
+
+## Render-function action
+
+`action` can also be a function that receives the snackbar's `key`. Useful when you need to imperatively close the toast or look up state by key.
+
+```tsx
+import { useSnackbar } from '@monetr/notify';
+
+function Example() {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  return (
+    <button
+      onClick={() =>
+        enqueueSnackbar('Uploaded', {
+          persist: true,
+          action: key => (
+            <button onClick={() => closeSnackbar(key)} type='button'>
+              Got it
+            </button>
+          ),
+        })
+      }
+    >
+      Upload
+    </button>
+  );
+}
+```
+
+## Close reasons
+
+`onClose` receives the close reason as its second argument. The reasons map to user intent:
+
+| Reason         | When fired                                              |
+| -------------- | ------------------------------------------------------- |
+| `'timeout'`    | `autoHideDuration` elapsed                              |
+| `'instructed'` | × button, action button, or `closeSnackbar(key)`        |
+| `'swipe'`      | User dragged the toast past the dismiss threshold       |
+| `'maxsnack'`   | A new toast pushed this one out of the visible stack    |
+| `'clickaway'`  | Reserved; not currently fired by this package           |

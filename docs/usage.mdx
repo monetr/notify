@@ -1,0 +1,95 @@
+import { Demo } from './components/Demo';
+import { BasicDemo } from './components/BasicDemo';
+
+# Usage
+
+## Basic example
+
+Click the button to fire a toast. Click again to stack another. The "Close all" button dismisses everything.
+
+<Demo>
+  <BasicDemo />
+</Demo>
+
+```tsx
+import { useSnackbar } from '@monetr/notify';
+
+function MyComponent() {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  return (
+    <>
+      <button onClick={() => enqueueSnackbar('Saved')}>Show toast</button>
+      <button onClick={() => closeSnackbar()}>Close all</button>
+    </>
+  );
+}
+```
+
+## Provider configuration
+
+`<SnackbarProvider>` accepts these props:
+
+```tsx
+<SnackbarProvider
+  maxSnack={5}
+  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+  autoHideDuration={4000}
+  prefetch='idle'
+>
+  <App />
+</SnackbarProvider>
+```
+
+| Prop               | Default                                  | Effect                                                                 |
+| ------------------ | ---------------------------------------- | ---------------------------------------------------------------------- |
+| `maxSnack`         | `5`                                      | Visible items per anchor stack. Oldest is evicted when full.           |
+| `anchorOrigin`     | `{ vertical: 'bottom', horizontal: 'center' }` | Default anchor for new notifications.                                  |
+| `autoHideDuration` | `4000` (ms)                              | Default auto-hide duration. `null` disables auto-hide.                 |
+| `iconVariant`      | `undefined`                              | Per-variant icon node. Replaces the variant pip.                       |
+| `container`        | `document.body`                          | Portal target.                                                         |
+| `prefetch`         | `'idle'`                                 | When the lazy renderer chunk downloads.                                |
+
+## Per-call options
+
+Every `enqueueSnackbar` call can override the provider defaults:
+
+```tsx
+enqueueSnackbar('Saved', {
+  variant: 'success',
+  autoHideDuration: 8000,
+  anchorOrigin: { vertical: 'top', horizontal: 'right' },
+  persist: false,
+  disableWindowBlurListener: true,
+  key: 'save-toast',
+  onClose: (_event, reason, key) => console.log('Closed', key, reason),
+});
+```
+
+The full options shape lives in the [API reference](/api).
+
+## Hover behavior
+
+Hovering over a toast (or the stack as a whole) pauses the auto-dismiss timer and expands the stack so background items become legible. Pointer-leave resumes the timer.
+
+## Drag to dismiss
+
+The front toast in a stack can be swiped in the direction of the nearest screen edge to dismiss it. The dismiss direction is computed from the toast's `anchorOrigin`:
+
+| Anchor          | Dismisses on            |
+| --------------- | ----------------------- |
+| `top-*`         | drag up                 |
+| `bottom-*`      | drag down               |
+| `*-left`        | drag left (additional)  |
+| `*-right`       | drag right (additional) |
+
+Drags below the threshold (100 px, or velocity > 0.4 px/ms) snap back. Drags in disallowed directions rubber-band with logarithmic damping.
+
+## Imperative close
+
+`closeSnackbar(key)` dismisses a specific notification. `closeSnackbar()` (no argument) dismisses every notification across every anchor stack.
+
+```tsx
+const key = enqueueSnackbar('Uploading...', { persist: true });
+// later
+closeSnackbar(key);
+```

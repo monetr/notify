@@ -1,0 +1,117 @@
+# API reference
+
+## `SnackbarProvider`
+
+```tsx
+function SnackbarProvider(props: SnackbarProviderProps): JSX.Element;
+```
+
+```ts
+interface SnackbarProviderProps {
+  children: ReactNode;
+  maxSnack?: number;                              // default 5
+  anchorOrigin?: AnchorOrigin;                    // default { vertical: 'bottom', horizontal: 'center' }
+  autoHideDuration?: number | null;               // default 4000 (ms); null disables
+  iconVariant?: Partial<Record<VariantType, ReactNode>>;
+  container?: HTMLElement | null;                 // default document.body
+  prefetch?: 'never' | 'idle' | 'mount';          // default 'idle'
+}
+```
+
+## `useSnackbar`
+
+```tsx
+function useSnackbar(): ProviderContext;
+```
+
+```ts
+interface ProviderContext {
+  enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject) => SnackbarKey;
+  closeSnackbar: (key?: SnackbarKey) => void;
+}
+```
+
+Calling `useSnackbar` outside a `<SnackbarProvider>` throws.
+
+## `enqueueSnackbar` options
+
+```ts
+interface OptionsObject {
+  key?: SnackbarKey;
+  variant?: VariantType;                          // default 'default'
+  persist?: boolean;                              // shorthand for autoHideDuration: null
+  autoHideDuration?: number | null;
+  anchorOrigin?: AnchorOrigin;
+  disableWindowBlurListener?: boolean;            // default false
+  action?: ReactNode | ((key: SnackbarKey) => ReactNode);
+  onClose?: (event: SyntheticEvent<HTMLElement> | null, reason: CloseReason, key: SnackbarKey) => void;
+}
+```
+
+Calling `enqueueSnackbar` with a `key` that is already in the queue returns the existing key without enqueuing a duplicate.
+
+## `closeSnackbar`
+
+```ts
+function closeSnackbar(key?: SnackbarKey): void;
+```
+
+With `key`, dismisses that specific notification. Without `key`, dismisses every active notification across every anchor stack. Either path fires `onClose` with `reason: 'instructed'` for the affected items.
+
+## Types
+
+```ts
+type VariantType = 'default' | 'success' | 'error' | 'warning' | 'info';
+
+type SnackbarKey = string | number;
+
+type SnackbarMessage = ReactNode;
+
+interface AnchorOrigin {
+  vertical: 'top' | 'bottom';
+  horizontal: 'left' | 'center' | 'right';
+}
+
+type CloseReason = 'timeout' | 'instructed' | 'maxsnack' | 'clickaway' | 'swipe';
+```
+
+## CSS variables
+
+All tokens are defined under `:where(...)` selectors (specificity 0) so any consumer override at `:root` or higher wins.
+
+| Variable                                  | Default                          |
+| ----------------------------------------- | -------------------------------- |
+| `--monetr-notification-bg`                | `rgba(28, 28, 30, 0.88)`         |
+| `--monetr-notification-fg`                | `#e8e8e8`                        |
+| `--monetr-notification-fg-muted`          | `rgba(232, 232, 232, 0.55)`      |
+| `--monetr-notification-border`            | `rgba(255, 255, 255, 0.08)`      |
+| `--monetr-notification-radius`            | `14px`                           |
+| `--monetr-notification-blur`              | `16px`                           |
+| `--monetr-notification-shadow`            | soft drop shadow                 |
+| `--monetr-notification-success`           | `#34d399`                        |
+| `--monetr-notification-error`             | `#f87171`                        |
+| `--monetr-notification-warning`           | `#fbbf24`                        |
+| `--monetr-notification-info`              | `#60a5fa`                        |
+| `--monetr-notification-progress-track`    | `rgba(255, 255, 255, 0.08)`      |
+| `--monetr-notification-z-index`           | `9999`                           |
+| `--monetr-notification-stack-edge-padding`| `16px`                           |
+| `--monetr-notification-width`             | `min(380px, calc(100vw - 32px))` |
+
+## Data attributes
+
+The DOM uses semantic data attributes for state. Consumers can write CSS rules against any of these:
+
+| Attribute                                | Values                                                          |
+| ---------------------------------------- | --------------------------------------------------------------- |
+| `data-monetr-notifier-stack`             | present on every stack container                                |
+| `data-stack-anchor`                      | `top-left` ... `bottom-right` (6 combinations)                  |
+| `data-stack-hovered`                     | `true` / `false`                                                |
+| `data-stack-empty`                       | `true` / `false`                                                |
+| `data-monetr-notification`               | present on every notification                                   |
+| `data-monetr-notification-anchor`        | matches stack anchor                                            |
+| `data-monetr-notification-variant`       | `default` / `success` / `error` / `warning` / `info`            |
+| `data-state`                             | `entering` / `visible` / `paused` / `exiting` / `swiped-out`    |
+| `data-stack-index`                       | `0`, `1`, `2`, ... position from front of stack                 |
+| `data-dragging`                          | `true` / `false`                                                |
+| `data-swipe-direction`                   | `-1` / `1` (set during swipe-out animation)                     |
+| `data-swipe-axis`                        | `x` / `y` (set during swipe-out animation)                      |

@@ -1,0 +1,65 @@
+---
+pageType: home
+
+hero:
+  name: '@monetr/notify'
+  text: Toast notifications for React.
+  tagline: Drop-in notistack-compatible API. Stacked toasts, hover-pause, drag-to-dismiss. Renderer lazy-loaded by default.
+  actions:
+    - theme: brand
+      text: Get started
+      link: /installation
+    - theme: alt
+      text: View on GitHub
+      link: https://github.com/monetr/notify
+
+features:
+  - title: Notistack-compatible
+    details: SnackbarProvider, useSnackbar, enqueueSnackbar — same names, same call signatures.
+    icon: 🔄
+  - title: Lazy-loaded renderer
+    details: The provider + hook are ~2.5 KB gzipped. The toast UI loads only when the first notification fires.
+    icon: ⚡
+  - title: Six anchor positions
+    details: top/bottom × left/center/right. Each anchor has its own independent stack.
+    icon: 🧭
+  - title: Drag-to-dismiss
+    details: Direction-aware swipe based on the toast's anchor position.
+    icon: 👆
+  - title: Theming via CSS variables
+    details: No runtime style props. Override --monetr-notification-* from your own stylesheet.
+    icon: 🎨
+  - title: SSR-safe
+    details: No portals on the server. Renderer mounts after the first client-side enqueue.
+    icon: 🌐
+---
+
+import { Demo } from './components/Demo';
+import { RapidFireDemo } from './components/RapidFireDemo';
+
+## Try it
+
+<Demo>
+  <RapidFireDemo />
+</Demo>
+
+```tsx
+import { SnackbarProvider, useSnackbar } from '@monetr/notify';
+
+function App() {
+  return (
+    <SnackbarProvider>
+      <Body />
+    </SnackbarProvider>
+  );
+}
+
+function Body() {
+  const { enqueueSnackbar } = useSnackbar();
+  return (
+    <button onClick={() => enqueueSnackbar('Saved', { variant: 'success' })}>
+      Save
+    </button>
+  );
+}
+```

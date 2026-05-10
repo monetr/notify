@@ -1,0 +1,51 @@
+import { Demo } from './components/Demo';
+import { VariantsDemo } from './components/VariantsDemo';
+
+# Variants
+
+Five built-in variants. The variant drives the accent color on the type pip and the progress rail.
+
+<Demo>
+  <VariantsDemo />
+</Demo>
+
+```tsx
+import { useSnackbar } from '@monetr/notify';
+
+function Example() {
+  const { enqueueSnackbar } = useSnackbar();
+  return (
+    <>
+      <button onClick={() => enqueueSnackbar('Hi', { variant: 'default' })}>Default</button>
+      <button onClick={() => enqueueSnackbar('Saved', { variant: 'success' })}>Success</button>
+      <button onClick={() => enqueueSnackbar('Failed', { variant: 'error' })}>Error</button>
+      <button onClick={() => enqueueSnackbar('Heads up', { variant: 'warning' })}>Warning</button>
+      <button onClick={() => enqueueSnackbar('FYI', { variant: 'info' })}>Info</button>
+    </>
+  );
+}
+```
+
+## Accessibility
+
+The variant controls the ARIA live-region role:
+
+| Variant                       | `role`   | `aria-live` |
+| ----------------------------- | -------- | ----------- |
+| `default`, `success`, `info`  | `status` | `polite`    |
+| `error`, `warning`            | `alert`  | `assertive` |
+
+Errors and warnings interrupt screen readers; the others are queued behind whatever is currently being read.
+
+## Theming variant accents
+
+Override the variant colors via CSS custom properties on `:root` or any ancestor:
+
+```css
+:root {
+  --monetr-notification-success: #16a34a;
+  --monetr-notification-error: #dc2626;
+  --monetr-notification-warning: #ca8a04;
+  --monetr-notification-info: #2563eb;
+}
+```

@@ -1,0 +1,63 @@
+# Lazy loading
+
+The toast UI, animations, drag logic, and stylesheet live in a code-split chunk that downloads only when the first `enqueueSnackbar` fires. Apps that mount the provider but never enqueue pay only for the bootstrap (~2.5 KB gzipped).
+
+## How it works
+
+`<SnackbarProvider>` uses `React.lazy` and `<Suspense>` to defer the renderer:
+
+```tsx
+const LazyNotifierRoot = lazy(() => import('./renderer'));
+
+function SnackbarProvider({ children, ...props }) {
+  const [active, setActive] = useState(false);
+
+  const enqueueSnackbar = (message, options) => {
+    // ...append to queue...
+    if (!active) setActive(true); // first call mounts the renderer
+  };
+
+  return (
+    <Context.Provider value={api}>
+      {children}
+      {active ? (
+        <Suspense fallback={null}>
+          <LazyNotifierRoot {...} />
+        </Suspense>
+      ) : null}
+    </Context.Provider>
+  );
+}
+```
+
+The `import('./renderer')` literal survives rslib's bundleless build, so consumer bundlers (rsbuild, Vite, webpack) treat it as a code-split point. The CSS imported by the renderer follows it into the same chunk.
+
+## Prefetch
+
+To avoid the first-toast download latency, the provider warm-loads the chunk during browser idle time by default:
+
+```tsx
+<SnackbarProvider prefetch='idle'>{children}</SnackbarProvider>
+```
+
+| Value      | Behavior                                                                  |
+| ---------- | ------------------------------------------------------------------------- |
+| `'idle'`   | Default. Calls `requestIdleCallback` (or falls back to `setTimeout(200)`). |
+| `'mount'`  | Starts the chunk download as soon as the provider mounts.                  |
+| `'never'`  | Chunk downloads only when the first `enqueueSnackbar` fires.                |
+
+In testing this against a cold tab on slow 3G, `prefetch='idle'` is invisible to users and removes the brief blank gap before the first toast appears.
+
+## SSR
+
+The lazy renderer is gated on `active`, which only flips after a client-side `enqueueSnackbar`. The server output is just `{children}` plus an empty provider — no portals, no `document` access, no hydration mismatch.
+
+## Bundle sizes
+
+Approximate gzipped sizes for the most recent build:
+
+| Layer          | Files                                                                                 | Size      |
+| -------------- | ------------------------------------------------------------------------------------- | --------- |
+| Eager bootstrap | `index`, `provider`, `hook`, `context`, `use-queue`, `types`, `constants`             | ~2.5 KB   |
+| Lazy renderer   | `renderer`, `notifier`, `notification`, `helpers`, `style.css`                        | ~6.5 KB   |
+| **Total**       |                                                                                       | ~9 KB     |

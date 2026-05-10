@@ -1,0 +1,64 @@
+# Installation
+
+```sh
+pnpm add @monetr/notify
+```
+
+```sh
+npm install @monetr/notify
+```
+
+```sh
+yarn add @monetr/notify
+```
+
+## Peer dependencies
+
+Requires React 18 or 19.
+
+```json
+{
+  "peerDependencies": {
+    "react": "^18.0 || ^19.0.0",
+    "react-dom": "^18.0 || ^19.0.0"
+  }
+}
+```
+
+## Quick start
+
+Wrap your app in `<SnackbarProvider>` once. Then call `useSnackbar()` anywhere inside.
+
+```tsx
+import { SnackbarProvider, useSnackbar } from '@monetr/notify';
+
+function Root() {
+  return (
+    <SnackbarProvider maxSnack={5}>
+      <App />
+    </SnackbarProvider>
+  );
+}
+
+function SaveButton() {
+  const { enqueueSnackbar } = useSnackbar();
+  return (
+    <button onClick={() => enqueueSnackbar('Saved', { variant: 'success' })}>
+      Save
+    </button>
+  );
+}
+```
+
+That's it. The toast renderer chunk lazy-loads on the first `enqueueSnackbar` call.
+
+## Migrating from notistack
+
+The names and signatures match notistack v3 for the API surface used in `@monetr/monetr`. In most cases, the migration is a one-line change in your imports.
+
+```diff
+- import { SnackbarProvider, useSnackbar } from 'notistack';
++ import { SnackbarProvider, useSnackbar } from '@monetr/notify';
+```
+
+See the [API reference](/api) for the full surface this package exposes.

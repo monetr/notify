@@ -1,0 +1,50 @@
+import { Demo } from './components/Demo';
+import { IconsDemo, iconVariant } from './components/IconsDemo';
+
+# Custom icons
+
+Replace the variant pip with your own icon by passing `iconVariant` to the provider. The icon renders immediately to the left of the message.
+
+<Demo iconVariant={iconVariant}>
+  <IconsDemo />
+</Demo>
+
+```tsx
+import { SnackbarProvider, useSnackbar, type VariantType } from '@monetr/notify';
+import type { ReactNode } from 'react';
+import { Check, CircleAlert, Info, TriangleAlert } from 'lucide-react';
+
+const iconVariant: Partial<Record<VariantType, ReactNode>> = {
+  success: <Check size={16} />,
+  error: <CircleAlert size={16} />,
+  warning: <TriangleAlert size={16} />,
+  info: <Info size={16} />,
+};
+
+function Root() {
+  return (
+    <SnackbarProvider iconVariant={iconVariant}>
+      <App />
+    </SnackbarProvider>
+  );
+}
+```
+
+## Fallback behavior
+
+If a variant doesn't have an entry in `iconVariant`, the toast falls back to the built-in colored pip. Default-variant toasts never show a pip or icon unless you provide one.
+
+## Custom icon styling
+
+Each icon node is rendered inside a `[data-monetr-notification-icon-slot]` span. Target that selector to control sizing, color, or alignment:
+
+```css
+[data-monetr-notification-icon-slot] {
+  color: var(--monetr-notification-progress-bar);
+}
+
+[data-monetr-notification-icon-slot] svg {
+  width: 16px;
+  height: 16px;
+}
+```

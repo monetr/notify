@@ -193,6 +193,13 @@ export function Notification(props: NotificationProps): JSX.Element {
       if (state !== 'visible' && state !== 'entering' && state !== 'paused') {
         return;
       }
+      // Don't start drag tracking when the pointerdown originated on an interactive child like the
+      // dismiss × button or the action button. Capturing the pointer to the <li> here would steal
+      // the subsequent click from the button.
+      const target = event.target as HTMLElement | null;
+      if (target?.closest('button, a, input, textarea, select, [role="button"]')) {
+        return;
+      }
       const now = performance.now();
       dragRef.current = {
         startX: event.clientX,

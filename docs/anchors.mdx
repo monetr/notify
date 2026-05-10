@@ -1,0 +1,56 @@
+import { Demo } from './components/Demo';
+import { AnchorsDemo } from './components/AnchorsDemo';
+
+# Anchor positions
+
+Six anchor positions. Each has its own independent stack — toasts queued to different anchors do not compete for the same `maxSnack` slot.
+
+<Demo>
+  <AnchorsDemo />
+</Demo>
+
+```tsx
+import { useSnackbar } from '@monetr/notify';
+
+function Example() {
+  const { enqueueSnackbar } = useSnackbar();
+  return (
+    <button
+      onClick={() =>
+        enqueueSnackbar('Top right toast', {
+          anchorOrigin: { vertical: 'top', horizontal: 'right' },
+        })
+      }
+    >
+      Show top-right
+    </button>
+  );
+}
+```
+
+## Provider default vs per-toast override
+
+The provider's `anchorOrigin` sets the default for new toasts. A per-call `anchorOrigin` in `enqueueSnackbar` options wins.
+
+```tsx
+<SnackbarProvider anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+  {/* Toasts default to bottom-center... */}
+  <button onClick={() => enqueueSnackbar('Default position')}>
+    Default
+  </button>
+  {/* ...but this one goes top-right */}
+  <button
+    onClick={() =>
+      enqueueSnackbar('Override', {
+        anchorOrigin: { vertical: 'top', horizontal: 'right' },
+      })
+    }
+  >
+    Override to top-right
+  </button>
+</SnackbarProvider>
+```
+
+## Stack ordering
+
+New toasts always appear at the front of their anchor's stack. Older toasts shift back, scale down, and fade. With `maxSnack` set, anchors that exceed the limit evict the oldest visible toast and fire `onClose(_, 'maxsnack', key)` on the evicted item.

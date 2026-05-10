@@ -87,12 +87,17 @@ higher-specificity selector wins.
   --monetr-stack-direction: -1;
   --monetr-drag-x: 0px;
   --monetr-drag-y: 0px;
+  --monetr-entry-y: 0px;
   --monetr-notification-progress: 0;
   --monetr-notification-progress-bar: var(--monetr-notification-fg-muted);
 
   transform: translate3d(
       var(--monetr-drag-x),
-      calc(var(--monetr-stack-index) * var(--monetr-stack-direction) * var(--monetr-stack-offset) + var(--monetr-drag-y)),
+      calc(
+        var(--monetr-stack-index) * var(--monetr-stack-direction) * var(--monetr-stack-offset) +
+        var(--monetr-drag-y) +
+        var(--monetr-entry-y)
+      ),
       0
     )
     scale(var(--monetr-stack-scale));
@@ -101,7 +106,6 @@ higher-specificity selector wins.
     opacity 0.3s ease-out;
   z-index: calc(1000 - var(--monetr-stack-index));
   opacity: 1;
-  animation: monetr-notification-content-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
 }
 
 /* The front-of-stack item is `position: relative` so the stack container sizes to its height;
@@ -146,13 +150,15 @@ higher-specificity selector wins.
   transition: opacity 0.15s ease-out;
 }
 
-/* Entering: hidden offscreen until the two-frame mount flips state to visible. */
+/* Entering: hidden offscreen until the two-frame mount flips state to visible. The offset uses
+   --monetr-entry-y rather than --monetr-drag-y because the inline style always sets drag-y to
+   the current pointer delta (0 when not dragging), which would otherwise override this rule. */
 [data-monetr-notification][data-state='entering'] {
   opacity: 0;
-  --monetr-drag-y: 24px;
+  --monetr-entry-y: 24px;
 }
 [data-monetr-notifier-stack][data-stack-anchor^='top-'] [data-monetr-notification][data-state='entering'] {
-  --monetr-drag-y: -24px;
+  --monetr-entry-y: -24px;
 }
 
 /* Exit animation when dismissed via timer / button / programmatic close. */
@@ -269,17 +275,6 @@ higher-specificity selector wins.
 }
 
 /* ---- Keyframes ---- */
-@keyframes monetr-notification-content-in {
-  0% {
-    opacity: 0;
-    transform: translate3d(var(--monetr-drag-x, 0px), 4px, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(var(--monetr-drag-x, 0px), 0, 0);
-  }
-}
-
 @keyframes monetr-notification-pip-in {
   0% {
     opacity: 0;
