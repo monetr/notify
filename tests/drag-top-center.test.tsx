@@ -4,7 +4,7 @@ import { describe, expect, test } from '@rstest/core';
 
 import { ANIMATION_DURATION } from './constants';
 import { DragSnackbar } from './fixtures/DragSnackbar';
-import { dragVertically, NOTIFICATION_SELECTOR, wait } from './helpers';
+import { dragHorizontally, dragVertically, NOTIFICATION_SELECTOR, wait } from './helpers';
 
 const ANCHOR = { vertical: 'top', horizontal: 'center' } as const;
 
@@ -25,5 +25,23 @@ describe('drag top-center', () => {
     await dragVertically(200);
     await wait(ANIMATION_DURATION);
     expect(document.querySelectorAll(NOTIFICATION_SELECTOR).length).toBe(1);
+  });
+
+  test('swipe right dismisses', async () => {
+    await render(<DragSnackbar anchor={ANCHOR} />);
+    await page.getByTestId('enqueue').click();
+    await wait(ANIMATION_DURATION);
+    await dragHorizontally(150);
+    await wait(ANIMATION_DURATION + 200);
+    expect(document.querySelectorAll(NOTIFICATION_SELECTOR).length).toBe(0);
+  });
+
+  test('swipe left dismisses', async () => {
+    await render(<DragSnackbar anchor={ANCHOR} />);
+    await page.getByTestId('enqueue').click();
+    await wait(ANIMATION_DURATION);
+    await dragHorizontally(-150);
+    await wait(ANIMATION_DURATION + 200);
+    expect(document.querySelectorAll(NOTIFICATION_SELECTOR).length).toBe(0);
   });
 });

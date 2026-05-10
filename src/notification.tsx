@@ -60,7 +60,7 @@ function isDismissAllowed(anchor: AnchorOrigin, axis: 'x' | 'y', sign: -1 | 1): 
   if (anchor.horizontal === 'right') {
     return sign === 1;
   }
-  return false;
+  return true;
 }
 
 const PIP_VARIANTS: VariantType[] = ['success', 'error', 'warning', 'info'];
