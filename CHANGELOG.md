@@ -1,0 +1,25 @@
+# Changelog
+
+## 1.0.0 (2026-05-10)
+
+
+### Features
+
+* Adding documentation site + fixing bugs ([55910c6](https://github.com/monetr/notify/commit/55910c6ba3479f03965a7e83747ea87c2fe73386))
+* Initial code ([156ac6f](https://github.com/monetr/notify/commit/156ac6f73d04d7aa610c94dcc4914875cf997fc9))
+
+
+### Bug Fixes
+
+* Fixed swipe to dismiss on center anchor ([98a5b28](https://github.com/monetr/notify/commit/98a5b283bfb5835bcbc1187b37600afe83c6c0a3))
+
+
+### Refactor
+
+* Cleanup ([c409e8c](https://github.com/monetr/notify/commit/c409e8c1eb7b5c8c6968ed50fffd3df36d796ff9))
+
+
+### Documentation
+
+* Deploying docs site ([5aa28c3](https://github.com/monetr/notify/commit/5aa28c3be4071e43eb81da65eb5e0c549e91cab7))
+* Improving documentation ([589a5d0](https://github.com/monetr/notify/commit/589a5d02da7f5c7e1e70ae4de026f94f3f5b50ce))
