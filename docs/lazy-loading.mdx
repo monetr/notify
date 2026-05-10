@@ -46,11 +46,11 @@ To avoid the first-toast download latency, the provider warm-loads the chunk dur
 | `'mount'`  | Starts the chunk download as soon as the provider mounts.                  |
 | `'never'`  | Chunk downloads only when the first `enqueueSnackbar` fires.                |
 
-In testing this against a cold tab on slow 3G, `prefetch='idle'` is invisible to users and removes the brief blank gap before the first toast appears.
+The idle prefetch hides the chunk download behind whatever else the page is doing, so the first toast doesn't have to wait on a network round-trip.
 
 ## SSR
 
-The lazy renderer is gated on `active`, which only flips after a client-side `enqueueSnackbar`. The server output is just `{children}` plus an empty provider — no portals, no `document` access, no hydration mismatch.
+The lazy renderer is gated on `active`, which only flips after a client-side `enqueueSnackbar`. On the server the output is just `{children}` plus an empty provider, so there are no portals, no `document` access, and no hydration mismatch.
 
 ## Bundle sizes
 

@@ -59,6 +59,7 @@
     "@rsbuild/plugin-react": "2.0.0",
     "@rsdoctor/rspack-plugin": "1.5.9",
     "@rslib/core": "0.21.3",
+    "@rspress/core": "2.0.10",
     "@rstest/adapter-rslib": "0.2.2",
     "@rstest/browser": "0.9.10",
     "@rstest/browser-react": "0.9.10",
@@ -69,7 +70,6 @@
     "playwright": "1.59.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "rspress": "^1.47.1",
     "typescript": "6.0.3"
   },
   "peerDependencies": {

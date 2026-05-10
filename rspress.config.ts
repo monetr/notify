@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { defineConfig } from 'rspress/config';
+import { defineConfig } from '@rspress/core';
 
 export default defineConfig({
   root: path.join(__dirname, 'docs'),
@@ -14,7 +14,7 @@ export default defineConfig({
       { icon: 'github', mode: 'link', content: 'https://github.com/monetr/notify' },
     ],
     footer: {
-      message: 'EPL-2.0 Licensed | Copyright © monetr',
+      message: 'EPL-2.0 Licensed | Copyright © monetr LLC',
     },
   },
   builderConfig: {

@@ -1,16 +1,8 @@
+import { PackageManagerTabs } from '@rspress/core/theme';
+
 # Installation
 
-```sh
-pnpm add @monetr/notify
-```
-
-```sh
-npm install @monetr/notify
-```
-
-```sh
-yarn add @monetr/notify
-```
+<PackageManagerTabs command='install @monetr/notify' />
 
 ## Peer dependencies
 
@@ -54,7 +46,7 @@ That's it. The toast renderer chunk lazy-loads on the first `enqueueSnackbar` ca
 
 ## Migrating from notistack
 
-The names and signatures match notistack v3 for the API surface used in `@monetr/monetr`. In most cases, the migration is a one-line change in your imports.
+The names and signatures match notistack v3 for the API surface used in `@monetr/monetr`. Migrating is usually a one-line import change.
 
 ```diff
 - import { SnackbarProvider, useSnackbar } from 'notistack';
