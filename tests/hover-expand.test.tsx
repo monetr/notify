@@ -26,7 +26,7 @@ describe('hover-expand', () => {
     expect(stack?.getAttribute('data-stack-hovered')).toBe('false');
   });
 
-  test('background notification transform changes when hovered (offset 8px → 14px)', async () => {
+  test('background notification transform changes when hovered (offset 8px to 14px)', async () => {
     await render(<MaxStackSnackbar />);
     await page.getByTestId('enqueue-one').click();
     await page.getByTestId('enqueue-one').click();

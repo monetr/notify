@@ -23,7 +23,6 @@ import type { AnchorOrigin, NotifierAction, SnackbarItem, VariantType } from './
 interface NotificationProps {
   instance: SnackbarItem;
   index: number;
-  total: number;
   stackHovered: boolean;
   iconNode?: ReactNode;
   dispatch: (action: NotifierAction) => void;
@@ -35,7 +34,6 @@ interface DragState {
   currentX: number;
   currentY: number;
   dragging: boolean;
-  /** Last sample (for velocity). */
   sampleAt: number;
   sampleX: number;
   sampleY: number;
@@ -62,13 +60,13 @@ function isDismissAllowed(anchor: AnchorOrigin, axis: 'x' | 'y', sign: -1 | 1): 
   if (anchor.horizontal === 'right') {
     return sign === 1;
   }
-  return false; // -center horizontal: no horizontal dismiss
+  return false;
 }
 
 const PIP_VARIANTS: VariantType[] = ['success', 'error', 'warning', 'info'];
 
 export function Notification(props: NotificationProps): JSX.Element {
-  const { instance, index, total: _total, stackHovered, iconNode, dispatch } = props;
+  const { instance, index, stackHovered, iconNode, dispatch } = props;
   const {
     key,
     anchorOrigin,
@@ -86,8 +84,7 @@ export function Notification(props: NotificationProps): JSX.Element {
   const elapsedRef = useRef(0);
   const lastResumeRef = useRef<number | null>(null);
   const swipeAxisRef = useRef<'x' | 'y' | null>(null);
-  // Mirror instance.onClose into a ref so handlers/effects don't need to depend on the
-  // instance object identity, which changes on every reducer dispatch.
+  // Mirror onClose so handlers don't depend on `instance` identity, which changes every dispatch.
   const onCloseRef = useRef(instance.onClose);
   useEffect(() => {
     onCloseRef.current = instance.onClose;
@@ -96,8 +93,7 @@ export function Notification(props: NotificationProps): JSX.Element {
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [windowBlurred, setWindowBlurred] = useState(false);
 
-  // Two-frame mount: render in `entering` state, rAF×2, then flip to `visible`. The double rAF
-  // gives the browser one frame to paint the entering styles before transitioning to visible.
+  // Two-frame mount: paint the entering styles, then transition to visible.
   useEffect(() => {
     if (state !== 'entering') {
       return;
@@ -114,7 +110,6 @@ export function Notification(props: NotificationProps): JSX.Element {
     };
   }, [state, key, dispatch]);
 
-  // Window-blur pause. Per-item so per-call disableWindowBlurListener is honored.
   useEffect(() => {
     if (disableWindowBlurListener) {
       return;
@@ -131,10 +126,8 @@ export function Notification(props: NotificationProps): JSX.Element {
 
   const effectivelyPaused = state === 'paused' || stackHovered || windowBlurred;
 
-  // Auto-dismiss timer with pause-aware bookkeeping.
   useEffect(() => {
     if (state !== 'visible' || autoHideDuration === null || effectivelyPaused) {
-      // Pausing: bank the elapsed delta from the last resume.
       if (lastResumeRef.current !== null) {
         elapsedRef.current += Date.now() - lastResumeRef.current;
         lastResumeRef.current = null;
@@ -158,12 +151,8 @@ export function Notification(props: NotificationProps): JSX.Element {
     };
   }, [state, autoHideDuration, effectivelyPaused, key, dispatch]);
 
-  // Progress rail update via CSS custom property at rAF cadence.
   useEffect(() => {
-    if (state !== 'visible' || autoHideDuration === null) {
-      return;
-    }
-    if (effectivelyPaused) {
+    if (state !== 'visible' || autoHideDuration === null || effectivelyPaused) {
       return;
     }
     let raf = 0;
@@ -184,8 +173,7 @@ export function Notification(props: NotificationProps): JSX.Element {
     return () => cancelAnimationFrame(raf);
   }, [state, autoHideDuration, effectivelyPaused]);
 
-  // Animation end → drop the item. We listen for both animation- and transition-end so the exit
-  // and swipe-out timelines reach their natural end before the queue removes the item from state.
+  // Fallback in case animationend never fires (e.g. reduced-motion suppresses animations).
   useEffect(() => {
     if (state !== 'exiting' && state !== 'swiped-out') {
       return;
@@ -216,11 +204,10 @@ export function Notification(props: NotificationProps): JSX.Element {
         sampleX: event.clientX,
         sampleY: event.clientY,
       };
-      const target = event.currentTarget;
       try {
-        target.setPointerCapture(event.pointerId);
+        event.currentTarget.setPointerCapture(event.pointerId);
       } catch {
-        // Synthetic events from tests never observed the pointerId; ignore.
+        // Synthetic events from tests have no observed pointerId.
       }
     },
     [index, state],
@@ -235,7 +222,6 @@ export function Notification(props: NotificationProps): JSX.Element {
       drag.currentX = event.clientX;
       drag.currentY = event.clientY;
       const now = performance.now();
-      // Sliding velocity sample window.
       if (now - drag.sampleAt > DRAG_VELOCITY_WINDOW_MS) {
         drag.sampleAt = now;
         drag.sampleX = event.clientX;
@@ -268,7 +254,7 @@ export function Notification(props: NotificationProps): JSX.Element {
     [anchorOrigin],
   );
 
-  const finishDrag = useCallback(() => {
+  const handlePointerUp = useCallback(() => {
     const drag = dragRef.current;
     if (!drag.dragging) {
       return;
@@ -280,12 +266,9 @@ export function Notification(props: NotificationProps): JSX.Element {
     const ax = Math.abs(dx);
     const ay = Math.abs(dy);
 
-    // Velocity over the trailing window.
     const elapsed = Math.max(1, performance.now() - drag.sampleAt);
     const vx = Math.abs(drag.currentX - drag.sampleX) / elapsed;
     const vy = Math.abs(drag.currentY - drag.sampleY) / elapsed;
-
-    let outcome: { axis: 'x' | 'y'; direction: -1 | 1 } | null = null;
 
     const checkAxis = (axis: 'x' | 'y', delta: number, vel: number) => {
       const sign = (Math.sign(delta) || 1) as -1 | 1;
@@ -298,12 +281,10 @@ export function Notification(props: NotificationProps): JSX.Element {
       return null;
     };
 
-    // Use the dominant axis preferentially.
-    if (ax >= ay) {
-      outcome = checkAxis('x', dx, vx) ?? checkAxis('y', dy, vy);
-    } else {
-      outcome = checkAxis('y', dy, vy) ?? checkAxis('x', dx, vx);
-    }
+    const outcome =
+      ax >= ay
+        ? (checkAxis('x', dx, vx) ?? checkAxis('y', dy, vy))
+        : (checkAxis('y', dy, vy) ?? checkAxis('x', dx, vx));
 
     if (outcome) {
       swipeAxisRef.current = outcome.axis;
@@ -314,10 +295,6 @@ export function Notification(props: NotificationProps): JSX.Element {
 
     setDragOffset({ x: 0, y: 0 });
   }, [anchorOrigin, key, dispatch]);
-
-  const handlePointerUp = useCallback(() => {
-    finishDrag();
-  }, [finishDrag]);
 
   const handlePointerCancel = useCallback(() => {
     dragRef.current.dragging = false;
@@ -342,20 +319,13 @@ export function Notification(props: NotificationProps): JSX.Element {
     [key, dispatch],
   );
 
-  const renderedAction =
-    action === undefined || action === null
-      ? null
-      : typeof action === 'function'
-        ? (action(key) as ReactNode)
-        : (action as ReactNode);
+  const renderedAction = action == null ? null : typeof action === 'function' ? action(key) : action;
 
-  // Inline style holds the per-instance stack-index, drag offset, and (for an authored swipe-axis)
-  // the axis attribute that selects the right keyframe.
-  const cssVars: CSSProperties = {
-    ['--monetr-stack-index' as string]: String(index),
-    ['--monetr-drag-x' as string]: `${dragOffset.x}px`,
-    ['--monetr-drag-y' as string]: `${dragOffset.y}px`,
-  };
+  const cssVars = {
+    '--monetr-stack-index': String(index),
+    '--monetr-drag-x': `${dragOffset.x}px`,
+    '--monetr-drag-y': `${dragOffset.y}px`,
+  } as CSSProperties;
 
   const showPip = !iconNode && PIP_VARIANTS.includes(variant);
 

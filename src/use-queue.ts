@@ -14,23 +14,21 @@ import type {
   VariantType,
 } from './types';
 
-export type EnqueueAction = {
+type EnqueueAction = {
   type: 'enqueue';
   item: SnackbarItem;
-  /** Keys to drop from the same anchor before inserting `item`, due to maxSnack overflow. */
   dropKeys: SnackbarKey[];
 };
 
-export type Action = EnqueueAction | NotifierAction | { type: 'close-all' } | { type: 'reset' };
+export type Action = EnqueueAction | NotifierAction | { type: 'close-all' };
 
 let _idCounter = 0;
-export function nextKey(): SnackbarKey {
-  // Monotonic; survives StrictMode double-invoke since the counter is module-scoped.
+function nextKey(): SnackbarKey {
   _idCounter += 1;
   return _idCounter;
 }
 
-export function sameAnchor(a: AnchorOrigin, b: AnchorOrigin): boolean {
+function sameAnchor(a: AnchorOrigin, b: AnchorOrigin): boolean {
   return a.vertical === b.vertical && a.horizontal === b.horizontal;
 }
 
@@ -47,20 +45,25 @@ interface ProviderDefaults {
   autoHideDuration?: number | null;
 }
 
+function resolveAutoHideDuration(options: OptionsObject | undefined, defaults: ProviderDefaults): number | null {
+  if (options?.persist === true) {
+    return null;
+  }
+  if (options?.autoHideDuration !== undefined) {
+    return options.autoHideDuration;
+  }
+  if (defaults.autoHideDuration !== undefined) {
+    return defaults.autoHideDuration;
+  }
+  return DEFAULT_AUTO_HIDE_DURATION;
+}
+
 export function makeInstance(
   message: SnackbarMessage,
   options: OptionsObject | undefined,
   defaults: ProviderDefaults,
 ): SnackbarItem {
   const variant: VariantType = options?.variant ?? 'default';
-  const persist = options?.persist === true;
-  const autoHideDuration = persist
-    ? null
-    : options?.autoHideDuration !== undefined
-      ? options.autoHideDuration
-      : defaults.autoHideDuration !== undefined
-        ? defaults.autoHideDuration
-        : DEFAULT_AUTO_HIDE_DURATION;
   const anchorOrigin: AnchorOrigin = options?.anchorOrigin ??
     defaults.anchorOrigin ?? {
       vertical: DEFAULT_ANCHOR_VERTICAL,
@@ -71,7 +74,7 @@ export function makeInstance(
     key: options?.key ?? nextKey(),
     message,
     variant,
-    autoHideDuration,
+    autoHideDuration: resolveAutoHideDuration(options, defaults),
     anchorOrigin,
     disableWindowBlurListener: options?.disableWindowBlurListener ?? false,
     action: options?.action,
@@ -83,16 +86,13 @@ export function makeInstance(
 }
 
 export function findOverflowKeys(state: SnackbarItem[], incoming: SnackbarItem, maxSnack: number): SnackbarKey[] {
-  // Items at the same anchor that are still on screen (not exiting) — including the soon-to-be added
-  // incoming item. If that count would exceed maxSnack, the oldest entries get evicted.
   const live = state.filter(s => sameAnchor(s.anchorOrigin, incoming.anchorOrigin) && isLiveState(s.state));
   const projected = live.length + 1;
   if (projected <= maxSnack) {
     return [];
   }
+  // Items are stored newest-first; the oldest live items are at the tail.
   const dropCount = projected - maxSnack;
-  // Items are stored newest-first (prepended on enqueue), so the oldest live items are at the
-  // tail of `live`. Take the last `dropCount`.
   return live.slice(-dropCount).map(s => s.key);
 }
 
@@ -114,8 +114,6 @@ export function queueReducer(state: SnackbarItem[], action: Action): SnackbarIte
       return state.filter(s => s.key !== action.key);
     case 'close-all':
       return state.map(s => (isLiveState(s.state) ? { ...s, state: 'exiting' } : s));
-    case 'reset':
-      return [];
     default:
       return state;
   }
@@ -123,7 +121,6 @@ export function queueReducer(state: SnackbarItem[], action: Action): SnackbarIte
 
 export const initialQueue: SnackbarItem[] = [];
 
-/** Defaults for makeInstance, packaged. */
 export function providerDefaults(props: {
   anchorOrigin?: AnchorOrigin;
   autoHideDuration?: number | null;

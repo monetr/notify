@@ -20,9 +20,8 @@ import {
   queueReducer,
 } from './use-queue';
 
-// React.lazy preserves the dynamic import literal. Bundlers (rsbuild/vite/webpack) treat this as a
-// code-split point so `./renderer` and the CSS it imports become a separate chunk that downloads
-// only once `enqueueSnackbar` flips `active` to true.
+// Static `import('./renderer')` survives rslib's bundleless build, so the consumer's bundler
+// treats this as a code-split point and ships the renderer + its CSS as a separate chunk.
 const LazyNotifierRoot = lazy(() => import('./renderer'));
 
 interface RequestIdleWindow {
@@ -37,8 +36,8 @@ export function SnackbarProvider(props: SnackbarProviderProps) {
     [anchorOrigin?.vertical, anchorOrigin?.horizontal, anchorOrigin, autoHideDuration, maxSnack],
   );
 
-  // Queue lives in a ref so synchronous bursts of enqueue/close calls (e.g. a loop) see up-to-date
-  // state when computing maxSnack overflow. A version counter forces re-renders.
+  // The queue lives in a ref so a synchronous burst of enqueue/close calls (e.g. a `for` loop)
+  // sees up-to-date state when computing maxSnack overflow.
   const queueRef = useRef<SnackbarItem[]>(initialQueue);
   const [, setVersion] = useState(0);
   const dispatch = useCallback((action: Action) => {
@@ -46,12 +45,9 @@ export function SnackbarProvider(props: SnackbarProviderProps) {
     setVersion(v => v + 1);
   }, []);
 
-  // StrictMode double-invokes effects in dev, and React.lazy's `import()` is non-cancellable.
-  // Track whether the chunk has been requested to keep prefetch idempotent.
+  // Idempotent across StrictMode's double-invoke; `import()` is non-cancellable.
   const prefetchedRef = useRef(false);
 
-  // Activates lazy mounting on first enqueue. Local state keeps the renderer absent from the tree
-  // until needed.
   const [active, setActiveState] = useState(false);
   const activeRef = useRef(false);
   const setActive = useCallback(() => {
@@ -63,7 +59,6 @@ export function SnackbarProvider(props: SnackbarProviderProps) {
 
   const enqueueSnackbar = useCallback(
     (message: SnackbarMessage, options?: OptionsObject): SnackbarKey => {
-      // Dedup by consumer-supplied key. The same key will not produce a second toast.
       if (options?.key !== undefined) {
         const existing = queueRef.current.find(i => i.key === options.key);
         if (existing) {
@@ -72,12 +67,9 @@ export function SnackbarProvider(props: SnackbarProviderProps) {
       }
       const item = makeInstance(message, options, defaults);
       const dropKeys = findOverflowKeys(queueRef.current, item, defaults.maxSnack);
-      if (dropKeys.length > 0) {
-        // Fire onClose with reason 'maxsnack' for items that get evicted to make room.
-        for (const key of dropKeys) {
-          const dropped = queueRef.current.find(i => i.key === key);
-          dropped?.onClose?.(null, 'maxsnack', key);
-        }
+      for (const key of dropKeys) {
+        const dropped = queueRef.current.find(i => i.key === key);
+        dropped?.onClose?.(null, 'maxsnack', key);
       }
       dispatch({ type: 'enqueue', item, dropKeys } satisfies Action);
       setActive();
@@ -89,7 +81,6 @@ export function SnackbarProvider(props: SnackbarProviderProps) {
   const closeSnackbar = useCallback(
     (key?: SnackbarKey) => {
       if (key === undefined) {
-        // Close-all: notistack v3 fires onClose with reason 'instructed' for each evicted item.
         for (const item of queueRef.current) {
           if (isLiveState(item.state)) {
             item.onClose?.(null, 'instructed', item.key);
@@ -109,9 +100,6 @@ export function SnackbarProvider(props: SnackbarProviderProps) {
 
   const api = useMemo<ProviderContext>(() => ({ enqueueSnackbar, closeSnackbar }), [enqueueSnackbar, closeSnackbar]);
 
-  // Optional eager warm of the renderer chunk so the first enqueueSnackbar feels instant.
-  // Default 'idle' uses requestIdleCallback when available; fall back to a deferred setTimeout.
-  // 'never' opts out entirely; 'mount' triggers immediately on provider mount.
   useEffect(() => {
     if (prefetch === 'never' || typeof window === 'undefined' || prefetchedRef.current) {
       return;
@@ -139,8 +127,6 @@ export function SnackbarProvider(props: SnackbarProviderProps) {
     return () => window.clearTimeout(id);
   }, [prefetch]);
 
-  // The renderer subscribes to a narrow action set (its own NotifierAction). The provider widens
-  // the dispatch type so the renderer doesn't need to know about enqueue/close-all.
   const rendererDispatch = useCallback((a: NotifierAction) => dispatch(a as Action), [dispatch]);
 
   return (

@@ -13,7 +13,7 @@ export function getNotification(selector = FRONT_NOTIFICATION_SELECTOR): HTMLEle
   }
   // Notification's onPointerDown calls setPointerCapture(event.pointerId). Synthetic PointerEvents
   // have a pointerId the browser never observed, so Chromium throws InvalidPointerId. Stub the
-  // capture APIs to no-ops on the notification and its descendants — local to tests, doesn't
+  // capture APIs to no-ops on the notification and its descendants. Local to tests, doesn't
   // change library behavior.
   for (const el of [target, ...Array.from(target.querySelectorAll<HTMLElement>('*'))]) {
     el.setPointerCapture = () => {};

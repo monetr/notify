@@ -29,7 +29,7 @@ describe('iconVariant', () => {
   });
 
   test('falls back to pip when no iconVariant entry is provided', async () => {
-    // IconVariantSnackbar provides icons for success, error, warning. Trigger error → has icon, no pip.
+    // IconVariantSnackbar provides icons for success, error, warning. Trigger error: has icon, no pip.
     // (Would-be info has no icon, but the fixture only exposes success/error.)
     await render(<IconVariantSnackbar />);
     await page.getByTestId('enqueue-error').click();

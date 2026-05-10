@@ -16,7 +16,7 @@ describe('hover-pause', () => {
     // Hover well before the 1500ms timer would fire.
     await hoverStack();
 
-    // Wait beyond the original duration — the toast must still be present because the timer is
+    // Wait beyond the original duration. The toast must still be present because the timer is
     // paused while the stack is hovered.
     await wait(2000);
     expect(document.querySelectorAll(NOTIFICATION_SELECTOR).length).toBe(1);

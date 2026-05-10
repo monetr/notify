@@ -14,51 +14,44 @@ export interface AnchorOrigin {
 export type CloseReason = 'timeout' | 'instructed' | 'maxsnack' | 'clickaway' | 'swipe';
 
 export interface OptionsObject {
-  /** Stable key for dedup and external close. Auto-assigned if omitted. */
   key?: SnackbarKey;
-  /** Variant; default 'default'. */
   variant?: VariantType;
   /** Shorthand for `autoHideDuration: null`. */
   persist?: boolean;
-  /** ms; null/0 means persist; undefined inherits provider default. */
+  /** Auto-hide duration in ms. `null` or `0` disables auto-hide; `undefined` inherits the provider default. */
   autoHideDuration?: number | null;
-  /** Per-call anchor override. */
   anchorOrigin?: AnchorOrigin;
-  /** When true, the auto-hide timer ignores window-blur events for this notification. */
+  /** When `true`, this item ignores window-blur events. */
   disableWindowBlurListener?: boolean;
-  /** Action button. Static node, or a render fn that receives the snackbar key. */
+  /** Action button. A node, or a render fn that receives the snackbar key. */
   action?: ReactNode | ((key: SnackbarKey) => ReactNode);
-  /** Fires when the notification is closed (timer, click, swipe, programmatic, maxsnack). */
   onClose?: (event: SyntheticEvent<HTMLElement> | null, reason: CloseReason, key: SnackbarKey) => void;
 }
 
 export interface ProviderContext {
-  /** Enqueue a notification. Returns the assigned key. */
   enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject) => SnackbarKey;
-  /** Dismiss a specific notification. Pass no argument to close all. */
+  /** Pass no argument to close every active notification. */
   closeSnackbar: (key?: SnackbarKey) => void;
 }
 
 export interface SnackbarProviderProps {
   children: ReactNode;
-  /** Visible items per anchor stack. Default 5. */
+  /** Visible items per anchor stack. */
   maxSnack?: number;
-  /** Default anchor for new notifications. Default `{ vertical: 'bottom', horizontal: 'center' }`. */
+  /** Default anchor for new notifications. */
   anchorOrigin?: AnchorOrigin;
-  /** Default auto-hide duration, ms. Null means persist. Default 4000. */
+  /** Default auto-hide duration in ms. `null` disables auto-hide. */
   autoHideDuration?: number | null;
-  /** Replace the variant pip with a node per variant. Rendered immediately left of the message. */
+  /** Replaces the variant pip with a node per variant. Rendered before the message. */
   iconVariant?: Partial<Record<VariantType, ReactNode>>;
-  /** Portal target. Default `document.body`. */
+  /** Portal target. Defaults to `document.body`. */
   container?: HTMLElement | null;
-  /** When the lazy renderer chunk should download. Default `'idle'`. */
+  /** When the lazy renderer chunk should download. Defaults to `'idle'`. */
   prefetch?: 'never' | 'idle' | 'mount';
 }
 
-/** Internal state of one notification in the queue. */
 export type SnackbarItemState = 'entering' | 'visible' | 'paused' | 'exiting' | 'swiped-out';
 
-/** A fully-resolved item in the queue. */
 export interface SnackbarItem {
   key: SnackbarKey;
   message: SnackbarMessage;
@@ -73,7 +66,6 @@ export interface SnackbarItem {
   swipeDirection: -1 | 0 | 1;
 }
 
-/** Props passed to the lazy <NotifierRoot>. */
 export interface NotifierRootProps {
   queue: SnackbarItem[];
   dispatch: (action: NotifierAction) => void;
@@ -82,7 +74,6 @@ export interface NotifierRootProps {
   maxSnack: number;
 }
 
-/** Internal queue actions, exported so the lazy renderer can dispatch them. */
 export type NotifierAction =
   | { type: 'set-state'; key: SnackbarKey; state: SnackbarItemState }
   | { type: 'swipe'; key: SnackbarKey; direction: -1 | 1 }

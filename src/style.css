@@ -1,7 +1,7 @@
 /*
-@monetr/notify — toast styles. Loaded via the lazy renderer chunk so consumers
+@monetr/notify toast styles. Loaded via the lazy renderer chunk so consumers
 who never enqueue never download this file. Tokens are defined under :where(...)
-so they collapse to specificity 0, and any consumer override on :root or a
+so they collapse to specificity 0; any consumer override on :root or a
 higher-specificity selector wins.
 */
 
@@ -173,11 +173,7 @@ higher-specificity selector wins.
   animation: monetr-notification-swipe-out-left 0.3s cubic-bezier(0.32, 0.72, 0.37, 0.92) forwards;
   pointer-events: none;
 }
-[data-monetr-notifier-stack][data-stack-anchor^='top-'] [data-monetr-notification][data-state='swiped-out'][data-swipe-direction='-1']:not([data-swipe-axis='x']) {
-  /* (no-op placeholder for axis-aware variant, see swipe-axis attribute below) */
-}
-
-/* Variant accents — drive the progress bar color and the variant pip background. */
+/* Variant accents drive the progress bar color and the variant pip background. */
 [data-monetr-notification][data-monetr-notification-variant='success'] {
   --monetr-notification-progress-bar: var(--monetr-notification-success);
 }
