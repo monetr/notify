@@ -1,0 +1,147 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.14/schema.json",
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true,
+    "defaultBranch": "origin/main"
+  },
+  "files": {
+    "includes": ["**", "!**/*.html"]
+  },
+  "formatter": {
+    "enabled": true,
+    "bracketSpacing": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 120,
+    "attributePosition": "auto",
+    "includes": ["src/**", "tests/**", "!**/*.html", "!**/*.svg", "!**/*.mdx"]
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ["react", "react-dom", "react-dom/**"],
+              ":BLANK_LINE:",
+              ["@rstest/**"],
+              ":BLANK_LINE:",
+              ["@monetr/notify"],
+              ":BLANK_LINE:",
+              ["./**"],
+              ":PATH:",
+              ":BLANK_LINE:",
+              ["**/*.scss", "**/*.css", "**/*.svg", "**/*.png", "**/*.jpg", "**/*.gif", "**/*.jpeg", "**/*.webp"],
+              ":BLANK_LINE:"
+            ]
+          }
+        },
+        "useSortedAttributes": {
+          "level": "on",
+          "options": {
+            "sortOrder": "natural"
+          }
+        }
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "useKeyWithClickEvents": "off",
+        "useKeyWithMouseEvents": "off",
+        "noDistractingElements": "error",
+        "noInteractiveElementToNoninteractiveRole": "warn",
+        "noLabelWithoutControl": "warn",
+        "useValidAutocomplete": "error"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "warn",
+        "noUnusedVariables": "error",
+        "noUnusedImports": "error",
+        "noUnreachable": "error",
+        "useParseIntRadix": "error",
+        "useValidTypeof": "error",
+        "noNestedComponentDefinitions": "warn"
+      },
+      "complexity": {
+        "noForEach": "off",
+        "noThisInStatic": "off",
+        "noStaticOnlyClass": "off",
+        "noUselessFragments": "error",
+        "noArguments": "error",
+        "noEmptyTypeParameters": "error",
+        "noUselessCatch": "error",
+        "noUselessConstructor": "error"
+      },
+      "suspicious": {
+        "noShadowRestrictedNames": "error",
+        "noExplicitAny": "warn",
+        "noExtraNonNullAssertion": "warn",
+        "noUnknownAtRules": {
+          "level": "off",
+          "options": {
+            "ignore": ["apply", "function", "tailwind"]
+          }
+        }
+      },
+      "performance": {
+        "noDelete": "off"
+      },
+      "style": {
+        "useDefaultParameterLast": "off",
+        "noParameterAssign": "off",
+        "noNonNullAssertion": "off",
+        "useBlockStatements": "error",
+        "useConsistentCurlyBraces": "error",
+        "noRestrictedImports": {
+          "level": "warn",
+          "options": {
+            "paths": {}
+          }
+        }
+      },
+      "nursery": {}
+    },
+    "includes": ["src/**", "tests/**", "!**/*.html", "!**/*.svg", "!**/*.mdx", "!**/*.css"]
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "single",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "all",
+      "arrowParentheses": "asNeeded",
+      "bracketSpacing": true,
+      "bracketSameLine": false,
+      "quoteStyle": "single",
+      "attributePosition": "auto"
+    }
+  },
+  "css": {
+    "linter": {
+      "enabled": true
+    },
+    "formatter": {
+      "enabled": false
+    },
+    "parser": {
+      "cssModules": true,
+      "tailwindDirectives": true
+    },
+    "assist": {
+      "enabled": true
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  }
+}

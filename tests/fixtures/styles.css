@@ -1,0 +1,45 @@
+/* Fixture page background + text color overrides. Defined at :root so they win against the lazy
+   chunk's :where(...) defaults. */
+:root {
+  --monetr-notification-bg: rgba(28, 28, 30, 0.92);
+  --monetr-notification-fg: #f5f5f7;
+  --monetr-notification-fg-muted: rgba(245, 245, 247, 0.55);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #0f0f0f;
+  color: #e8e8e8;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+[data-fixture-page] {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  max-width: 480px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+[data-fixture-page] button {
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: left;
+}
+[data-fixture-page] button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

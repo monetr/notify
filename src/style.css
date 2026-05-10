@@ -1,0 +1,379 @@
+/*
+@monetr/notify — toast styles. Loaded via the lazy renderer chunk so consumers
+who never enqueue never download this file. Tokens are defined under :where(...)
+so they collapse to specificity 0, and any consumer override on :root or a
+higher-specificity selector wins.
+*/
+
+:where([data-monetr-notifier-stack], [data-monetr-notification]) {
+  --monetr-notification-bg: rgba(28, 28, 30, 0.88);
+  --monetr-notification-fg: #e8e8e8;
+  --monetr-notification-fg-muted: rgba(232, 232, 232, 0.55);
+  --monetr-notification-border: rgba(255, 255, 255, 0.08);
+  --monetr-notification-radius: 14px;
+  --monetr-notification-blur: 16px;
+  --monetr-notification-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --monetr-notification-success: #34d399;
+  --monetr-notification-error: #f87171;
+  --monetr-notification-warning: #fbbf24;
+  --monetr-notification-info: #60a5fa;
+  --monetr-notification-progress-track: rgba(255, 255, 255, 0.08);
+  --monetr-notification-z-index: 9999;
+  --monetr-notification-stack-edge-padding: 16px;
+  --monetr-notification-width: min(380px, calc(100vw - 32px));
+}
+
+/* ---- Stack container, one per anchor ---- */
+[data-monetr-notifier-stack] {
+  position: fixed;
+  z-index: var(--monetr-notification-z-index);
+  pointer-events: none;
+  width: var(--monetr-notification-width);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+[data-monetr-notifier-stack][data-stack-anchor^='bottom-'] {
+  bottom: max(env(safe-area-inset-bottom, 0px), var(--monetr-notification-stack-edge-padding));
+}
+[data-monetr-notifier-stack][data-stack-anchor^='top-'] {
+  top: max(env(safe-area-inset-top, 0px), var(--monetr-notification-stack-edge-padding));
+}
+[data-monetr-notifier-stack][data-stack-anchor$='-left'] {
+  left: var(--monetr-notification-stack-edge-padding);
+}
+[data-monetr-notifier-stack][data-stack-anchor$='-right'] {
+  right: var(--monetr-notification-stack-edge-padding);
+}
+[data-monetr-notifier-stack][data-stack-anchor$='-center'] {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+[data-monetr-notifier-stack][data-stack-empty='true'] {
+  display: none;
+}
+
+/* ---- Notification root ---- */
+[data-monetr-notification] {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  pointer-events: auto;
+  box-sizing: border-box;
+  background: var(--monetr-notification-bg);
+  color: var(--monetr-notification-fg);
+  border: 1px solid var(--monetr-notification-border);
+  border-radius: var(--monetr-notification-radius);
+  padding: 14px 16px 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--monetr-notification-shadow);
+  -webkit-backdrop-filter: blur(var(--monetr-notification-blur));
+  backdrop-filter: blur(var(--monetr-notification-blur));
+  user-select: none;
+  -webkit-user-select: none;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  touch-action: none;
+
+  --monetr-stack-index: 0;
+  --monetr-stack-offset: 8px;
+  --monetr-stack-scale: calc(1 - var(--monetr-stack-index) * 0.05);
+  --monetr-stack-direction: -1;
+  --monetr-drag-x: 0px;
+  --monetr-drag-y: 0px;
+  --monetr-notification-progress: 0;
+  --monetr-notification-progress-bar: var(--monetr-notification-fg-muted);
+
+  transform: translate3d(
+      var(--monetr-drag-x),
+      calc(var(--monetr-stack-index) * var(--monetr-stack-direction) * var(--monetr-stack-offset) + var(--monetr-drag-y)),
+      0
+    )
+    scale(var(--monetr-stack-scale));
+  transition:
+    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 0.3s ease-out;
+  z-index: calc(1000 - var(--monetr-stack-index));
+  opacity: 1;
+  animation: monetr-notification-content-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
+}
+
+/* The front-of-stack item is `position: relative` so the stack container sizes to its height;
+   background items stay absolute and stack visually behind it via translate. */
+[data-monetr-notification][data-stack-index='0'] {
+  position: relative;
+}
+
+/* Bottom-anchored stacks: items align to bottom edge; back items translateY upward. */
+[data-monetr-notifier-stack][data-stack-anchor^='bottom-'] [data-monetr-notification] {
+  bottom: 0;
+}
+
+/* Top-anchored stacks: items align to top edge; back items translateY downward. */
+[data-monetr-notifier-stack][data-stack-anchor^='top-'] [data-monetr-notification] {
+  top: 0;
+  --monetr-stack-direction: 1;
+}
+
+/* Hidden when too far back. */
+[data-monetr-notification][data-stack-index='3'],
+[data-monetr-notification][data-stack-index='4'],
+[data-monetr-notification][data-stack-index='5'],
+[data-monetr-notification][data-stack-index='6'],
+[data-monetr-notification][data-stack-index='7'] {
+  opacity: 0;
+}
+
+/* Pointer events only on the front toast. */
+[data-monetr-notification]:not([data-stack-index='0']) {
+  pointer-events: none;
+}
+
+/* Hovered: items expand farther apart, scale less aggressively. */
+[data-monetr-notifier-stack][data-stack-hovered='true'] [data-monetr-notification] {
+  --monetr-stack-offset: 14px;
+  --monetr-stack-scale: calc(1 - var(--monetr-stack-index) * 0.02);
+}
+
+/* Drag in progress: short transitions for opacity only. */
+[data-monetr-notification][data-dragging='true'] {
+  transition: opacity 0.15s ease-out;
+}
+
+/* Entering: hidden offscreen until the two-frame mount flips state to visible. */
+[data-monetr-notification][data-state='entering'] {
+  opacity: 0;
+  --monetr-drag-y: 24px;
+}
+[data-monetr-notifier-stack][data-stack-anchor^='top-'] [data-monetr-notification][data-state='entering'] {
+  --monetr-drag-y: -24px;
+}
+
+/* Exit animation when dismissed via timer / button / programmatic close. */
+[data-monetr-notification][data-state='exiting'] {
+  animation: monetr-notification-toast-out 0.28s ease-out forwards;
+  pointer-events: none;
+}
+[data-monetr-notifier-stack][data-stack-anchor^='top-'] [data-monetr-notification][data-state='exiting'] {
+  animation-name: monetr-notification-toast-out-top;
+}
+
+/* Swipe-out animations, by direction. */
+[data-monetr-notification][data-state='swiped-out'][data-swipe-direction='1'] {
+  animation: monetr-notification-swipe-out-right 0.3s cubic-bezier(0.32, 0.72, 0.37, 0.92) forwards;
+  pointer-events: none;
+}
+[data-monetr-notification][data-state='swiped-out'][data-swipe-direction='-1'] {
+  animation: monetr-notification-swipe-out-left 0.3s cubic-bezier(0.32, 0.72, 0.37, 0.92) forwards;
+  pointer-events: none;
+}
+[data-monetr-notifier-stack][data-stack-anchor^='top-'] [data-monetr-notification][data-state='swiped-out'][data-swipe-direction='-1']:not([data-swipe-axis='x']) {
+  /* (no-op placeholder for axis-aware variant, see swipe-axis attribute below) */
+}
+
+/* Variant accents — drive the progress bar color and the variant pip background. */
+[data-monetr-notification][data-monetr-notification-variant='success'] {
+  --monetr-notification-progress-bar: var(--monetr-notification-success);
+}
+[data-monetr-notification][data-monetr-notification-variant='error'] {
+  --monetr-notification-progress-bar: var(--monetr-notification-error);
+}
+[data-monetr-notification][data-monetr-notification-variant='warning'] {
+  --monetr-notification-progress-bar: var(--monetr-notification-warning);
+}
+[data-monetr-notification][data-monetr-notification-variant='info'] {
+  --monetr-notification-progress-bar: var(--monetr-notification-info);
+}
+
+/* ---- Subparts ---- */
+[data-monetr-notification-icon-slot] {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-monetr-notification-pip] {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--monetr-notification-progress-bar);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--monetr-notification-progress-bar) 53%, transparent);
+  animation: monetr-notification-pip-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
+}
+
+[data-monetr-notification-message] {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+[data-monetr-notification-action] {
+  background: none;
+  border: 1px solid var(--monetr-notification-border);
+  color: var(--monetr-notification-fg);
+  border-radius: 8px;
+  padding: 5px 12px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+[data-monetr-notification-action]:hover {
+  background: var(--monetr-notification-border);
+}
+
+[data-monetr-notification-dismiss] {
+  background: none;
+  border: none;
+  color: var(--monetr-notification-fg-muted);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+[data-monetr-notification-dismiss]:hover {
+  color: var(--monetr-notification-fg);
+}
+
+/* Progress rail at the bottom edge of the notification. */
+[data-monetr-notification-progress-track] {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--monetr-notification-progress-track);
+  pointer-events: none;
+}
+[data-monetr-notification-progress-bar-fill] {
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(calc(1 - var(--monetr-notification-progress, 0)));
+  transition: transform 0.08s linear;
+  background: var(--monetr-notification-progress-bar);
+  opacity: 0.7;
+  border-radius: 0 1px 1px 0;
+}
+[data-monetr-notification][data-stack-hovered-self='true'] [data-monetr-notification-progress-bar-fill] {
+  /* When user is hovering, transition: none so width updates feel paused. */
+  transition: none;
+}
+
+/* ---- Keyframes ---- */
+@keyframes monetr-notification-content-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--monetr-drag-x, 0px), 4px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(var(--monetr-drag-x, 0px), 0, 0);
+  }
+}
+
+@keyframes monetr-notification-pip-in {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes monetr-notification-toast-out {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0) scale(0.94);
+  }
+}
+
+@keyframes monetr-notification-toast-out-top {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -12px, 0) scale(0.94);
+  }
+}
+
+@keyframes monetr-notification-swipe-out-right {
+  0% {
+    opacity: 1;
+    transform: translate3d(var(--monetr-drag-x, 0px), 0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(120%, 0, 0) scale(0.9) rotate(8deg);
+  }
+}
+
+@keyframes monetr-notification-swipe-out-left {
+  0% {
+    opacity: 1;
+    transform: translate3d(var(--monetr-drag-x, 0px), 0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-120%, 0, 0) scale(0.9) rotate(-8deg);
+  }
+}
+
+[data-monetr-notification][data-state='swiped-out'][data-swipe-axis='y'][data-swipe-direction='1'] {
+  animation: monetr-notification-swipe-out-down 0.3s cubic-bezier(0.32, 0.72, 0.37, 0.92) forwards;
+}
+[data-monetr-notification][data-state='swiped-out'][data-swipe-axis='y'][data-swipe-direction='-1'] {
+  animation: monetr-notification-swipe-out-up 0.3s cubic-bezier(0.32, 0.72, 0.37, 0.92) forwards;
+}
+@keyframes monetr-notification-swipe-out-down {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, var(--monetr-drag-y, 0px), 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 120%, 0) scale(0.9);
+  }
+}
+@keyframes monetr-notification-swipe-out-up {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, var(--monetr-drag-y, 0px), 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -120%, 0) scale(0.9);
+  }
+}
+
+/* Reduced motion: keep the JS state machine intact and honor durations, but suppress the visual
+   transitions / animations. Toasts still appear and disappear at the right times so screen
+   readers have time to announce them. */
+@media (prefers-reduced-motion: reduce) {
+  [data-monetr-notification],
+  [data-monetr-notification-progress-bar-fill],
+  [data-monetr-notification-pip] {
+    transition: none !important;
+    animation: none !important;
+  }
+}
