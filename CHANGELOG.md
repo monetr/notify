@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/monetr/notify/compare/notify-v1.0.0...notify-v1.0.1) (2026-05-11)
+
+
+### Bug Fixes
+
+* Tweak peer dependencies ([2f2eece](https://github.com/monetr/notify/commit/2f2eecefb8c4170de18b511f62e85b863e95c6b6))
+
 ## 1.0.0 (2026-05-10)
 
 
