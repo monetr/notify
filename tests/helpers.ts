@@ -77,6 +77,30 @@ export async function dragHorizontally(deltaX: number, opts: DragOpts = {}) {
   fire(target, 'pointerup', startX + deltaX, startY, pointerType);
 }
 
+export async function dragVerticallyImperfect(deltaY: number, driftX: number, opts: DragOpts = {}) {
+  // Simulates a realistic human swipe: mostly vertical motion with a small lateral end-flick
+  // as the finger lifts. Real hands almost never travel in a perfectly straight line, and a
+  // fast vertical fling typically carries a few pixels of horizontal drift in the moment
+  // between the last "real" motion and the lift.
+  const steps = opts.steps ?? 4;
+  const pointerType = opts.pointerType ?? 'touch';
+  const target = getNotification(opts.targetSelector);
+  const rect = target.getBoundingClientRect();
+  const startX = rect.left + rect.width / 2;
+  const startY = rect.top + rect.height / 2;
+
+  fire(target, 'pointerdown', startX, startY, pointerType);
+  await tick();
+  for (let i = 1; i <= steps; i++) {
+    fire(target, 'pointermove', startX, startY + (deltaY * i) / steps, pointerType);
+    await tick();
+  }
+  // Drift fires tight against the lift (no tick gap) - a brief end-flick rather than a
+  // separately-timed gesture.
+  fire(target, 'pointermove', startX + driftX, startY + deltaY, pointerType);
+  fire(target, 'pointerup', startX + driftX, startY + deltaY, pointerType);
+}
+
 export async function dragDiagonally(deltaX: number, deltaY: number, opts: DragOpts = {}) {
   const steps = opts.steps ?? 8;
   const pointerType = opts.pointerType ?? 'touch';

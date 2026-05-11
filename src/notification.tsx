@@ -288,10 +288,10 @@ export function Notification(props: NotificationProps): JSX.Element {
       return null;
     };
 
-    const outcome =
-      ax >= ay
-        ? (checkAxis('x', dx, vx) ?? checkAxis('y', dy, vy))
-        : (checkAxis('y', dy, vy) ?? checkAxis('x', dx, vx));
+    // Only consider the dominant axis. Falling back to the secondary axis lets a fast upward
+    // fling on a bottom-anchored toast satisfy the horizontal velocity threshold from incidental
+    // x-jitter, dismissing as a sideways swipe the user never intended.
+    const outcome = ax >= ay ? checkAxis('x', dx, vx) : checkAxis('y', dy, vy);
 
     if (outcome) {
       swipeAxisRef.current = outcome.axis;
