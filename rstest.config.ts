@@ -36,6 +36,24 @@ export default defineConfig({
       name: 'iphone',
       include,
       browser: { ...browserBase, viewport: { width: 390, height: 844 } },
+      // Disable lazy compilation. Under HMR, lazy-compiled rstest runtime chunks (e.g. the
+      // snapshot-plugin chunk) can be disposed and then re-required as test files load,
+      // producing "[HMR] unexpected require ... from disposed module" warnings. Loading
+      // chunks eagerly avoids the dispose/re-require race; non-watch runs load every test
+      // file anyway, so there's nothing to gain from deferring compilation. The cast works
+      // around a name collision in @rspack/core's d.ts: the Experiments type that flows
+      // through Rspack.Configuration here resolves to the runtime API surface (which has no
+      // `lazyCompilation`) instead of the config schema (which does).
+      tools: {
+        rspack: config => {
+          config.experiments = {
+            ...config.experiments,
+            lazyCompilation: false,
+            // biome-ignore lint/suspicious/noExplicitAny: see comment above
+          } as any;
+          return config;
+        },
+      },
     },
   ],
 });
