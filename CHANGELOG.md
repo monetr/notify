@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/monetr/notify/compare/notify-v1.0.1...notify-v1.0.2) (2026-05-11)
+
+
+### Bug Fixes
+
+* Fixed bug with dismiss after dragging up ([eb7751f](https://github.com/monetr/notify/commit/eb7751fe130eced6e0a78dc3e98dbfe7b30406f1))
+* **test:** Fixing issue with testing warnings ([94f3df0](https://github.com/monetr/notify/commit/94f3df09da8f97a0adf12db7ad8f9c3e39174675))
+
 ## [1.0.1](https://github.com/monetr/notify/compare/notify-v1.0.0...notify-v1.0.1) (2026-05-11)
 
 
