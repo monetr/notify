@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.3](https://github.com/monetr/notify/compare/notify-v1.0.2...notify-v1.0.3) (2026-05-11)
+
+
+### Miscellaneous
+
+* Block core-js postinstall ([5f3b222](https://github.com/monetr/notify/commit/5f3b2226979498c37c6b2ed26aa918c169f4b72e))
+* **build:** Adding CodeQL pipeline ([2a026cd](https://github.com/monetr/notify/commit/2a026cddf4b375692b8437a27fd14696d8a2fa80))
+
 ## [1.0.2](https://github.com/monetr/notify/compare/notify-v1.0.1...notify-v1.0.2) (2026-05-11)
 
 

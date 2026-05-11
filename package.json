@@ -1,6 +1,6 @@
 {
   "name": "@monetr/notify",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Notification/toast component for React.",
   "type": "module",
   "main": "./dist/index.js",
@@ -78,6 +78,9 @@
   },
   "packageManager": "pnpm@10.33.4",
   "pnpm": {
-    "ignoredBuiltDependencies": ["core-js", "core-js-pure"]
+    "ignoredBuiltDependencies": [
+      "core-js",
+      "core-js-pure"
+    ]
   }
 }
