@@ -20,7 +20,10 @@ higher-specificity selector wins.
   --monetr-notification-progress-track: rgba(255, 255, 255, 0.08);
   --monetr-notification-z-index: 9999;
   --monetr-notification-stack-edge-padding: 16px;
-  --monetr-notification-width: min(380px, calc(100vw - 32px));
+  --monetr-notification-width: min(
+    380px,
+    calc(100vw - var(--monetr-notification-stack-edge-padding) * 2 - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px))
+  );
 }
 
 /* ---- Stack container, one per anchor ---- */
@@ -32,20 +35,22 @@ higher-specificity selector wins.
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 
+/* Edge padding is the floor; safe-area-inset adds to it so toasts never sit beneath
+   the home indicator, dynamic island, or rounded corners on iOS / Android. */
 [data-monetr-notifier-stack][data-stack-anchor^='bottom-'] {
-  bottom: max(env(safe-area-inset-bottom, 0px), var(--monetr-notification-stack-edge-padding));
+  bottom: calc(env(safe-area-inset-bottom, 0px) + var(--monetr-notification-stack-edge-padding));
 }
 [data-monetr-notifier-stack][data-stack-anchor^='top-'] {
-  top: max(env(safe-area-inset-top, 0px), var(--monetr-notification-stack-edge-padding));
+  top: calc(env(safe-area-inset-top, 0px) + var(--monetr-notification-stack-edge-padding));
 }
 [data-monetr-notifier-stack][data-stack-anchor$='-left'] {
-  left: var(--monetr-notification-stack-edge-padding);
+  left: calc(env(safe-area-inset-left, 0px) + var(--monetr-notification-stack-edge-padding));
 }
 [data-monetr-notifier-stack][data-stack-anchor$='-right'] {
-  right: var(--monetr-notification-stack-edge-padding);
+  right: calc(env(safe-area-inset-right, 0px) + var(--monetr-notification-stack-edge-padding));
 }
 [data-monetr-notifier-stack][data-stack-anchor$='-center'] {
-  left: 50%;
+  left: calc(50% + (env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)) / 2);
   transform: translateX(-50%);
 }
 
