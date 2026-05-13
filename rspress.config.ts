@@ -14,6 +14,7 @@ export default defineConfig({
   description: 'Notification toasts for React with a notistack-compatible API and a lazy-loaded renderer.',
   route: {
     exclude: ['components/**/*'],
+    cleanUrls: true,
   },
   themeConfig: {
     socialLinks: [

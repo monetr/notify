@@ -1,16 +1,4 @@
 [
   { "text": "Overview", "link": "/", "activeMatch": "^/$" },
-  {
-    "text": "Documentation",
-    "items": [
-      { "text": "Installation", "link": "/installation" },
-      { "text": "Usage", "link": "/usage" },
-      { "text": "Variants", "link": "/variants" },
-      { "text": "Anchor positions", "link": "/anchors" },
-      { "text": "Custom icons", "link": "/icons" },
-      { "text": "Action buttons", "link": "/actions" },
-      { "text": "Lazy loading", "link": "/lazy-loading" },
-      { "text": "API reference", "link": "/api" }
-    ]
-  }
+  { "text": "Documentation", "link": "/documentation/installation", "activeMatch": "^/documentation" }
 ]
