@@ -18,6 +18,7 @@ export default defineConfig({
   themeConfig: {
     socialLinks: [
       { icon: 'github', mode: 'link', content: 'https://github.com/monetr/notify' },
+      { icon: 'npm', mode: 'link', content: 'https://www.npmjs.com/package/@monetr/notify' },
     ],
     footer: {
       message: 'EPL-2.0 Licensed | Copyright © monetr LLC',
