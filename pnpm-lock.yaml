@@ -21,14 +21,14 @@ importers:
         specifier: 1.5.9
         version: 1.5.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@rsbuild/core@2.0.5(core-js@3.42.0))(@rspack/core@2.0.2(@swc/helpers@0.5.21))(webpack@5.106.2)
       '@rslib/core':
-        specifier: 0.21.3
-        version: 0.21.3(core-js@3.42.0)(typescript@6.0.3)
+        specifier: 0.21.4
+        version: 0.21.4(core-js@3.42.0)(typescript@6.0.3)
       '@rspress/core':
         specifier: 2.0.10
         version: 2.0.10(@rspack/core@2.0.2(@swc/helpers@0.5.21))(@types/mdast@4.0.4)(@types/react@18.3.28)(core-js@3.42.0)(micromark-util-types@2.0.2)(micromark@4.0.2)
       '@rstest/adapter-rslib':
         specifier: 0.2.2
-        version: 0.2.2(@rslib/core@0.21.3(core-js@3.42.0)(typescript@6.0.3))(@rstest/core@0.9.10(core-js@3.42.0))(typescript@6.0.3)
+        version: 0.2.2(@rslib/core@0.21.4(core-js@3.42.0)(typescript@6.0.3))(@rstest/core@0.9.10(core-js@3.42.0))(typescript@6.0.3)
       '@rstest/browser':
         specifier: 0.9.10
         version: 0.9.10(@rstest/core@0.9.10(core-js@3.42.0))(playwright@1.59.1)
@@ -292,8 +292,8 @@ packages:
   '@rsdoctor/utils@1.5.9':
     resolution: {integrity: sha512-e1Fii9zdtNCyYwsCZLKo5gkfBgZmkRkBpieSAcdworgdlhAA+UTxCVg1q6/Ozz8QQcUbj9AfP0do9ja633vfvw==}
 
-  '@rslib/core@0.21.3':
-    resolution: {integrity: sha512-3kyF273GQWIky4rAGD+Nkewlc7OraRwM2rG6wMJ19cYeomN0OKokVbk0vvfLAcQu43mtEO+dnZk6BchUoRmQOg==}
+  '@rslib/core@0.21.4':
+    resolution: {integrity: sha512-lGQ3znngCmzYaIbPZcfEm4t+fGhSM4os1GKwXaLydUOB2mf3Q/MDffpEkuMtbzrW+PmAGJ8NIbjgipXd9mlcsg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -1591,8 +1591,8 @@ packages:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
     engines: {node: '>=0.10.0'}
 
-  rsbuild-plugin-dts@0.21.3:
-    resolution: {integrity: sha512-8E3/npwRp99gc/Bl5bE1KKN5eIS2TQ3fuA7fBEk67R1RF7V4OtFKVI7mhk3X8zoH/9cclV9v909dguegZDgncw==}
+  rsbuild-plugin-dts@0.21.4:
+    resolution: {integrity: sha512-hqXzk3pQFcbviCZNECxIZsH8ygyf9F9n3UZWHpjcAZmYeH5wLPsGqa6CyXWh4+EDXkO++7iXTVuIuw2x2hGn/w==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       '@microsoft/api-extractor': ^7
@@ -2215,10 +2215,10 @@ snapshots:
       - '@rspack/core'
       - webpack
 
-  '@rslib/core@0.21.3(core-js@3.42.0)(typescript@6.0.3)':
+  '@rslib/core@0.21.4(core-js@3.42.0)(typescript@6.0.3)':
     dependencies:
       '@rsbuild/core': 2.0.5(core-js@3.42.0)
-      rsbuild-plugin-dts: 0.21.3(@rsbuild/core@2.0.5(core-js@3.42.0))(typescript@6.0.3)
+      rsbuild-plugin-dts: 0.21.4(@rsbuild/core@2.0.5(core-js@3.42.0))(typescript@6.0.3)
     optionalDependencies:
       typescript: 6.0.3
     transitivePeerDependencies:
@@ -2395,9 +2395,9 @@ snapshots:
       - '@module-federation/runtime-tools'
       - core-js
 
-  '@rstest/adapter-rslib@0.2.2(@rslib/core@0.21.3(core-js@3.42.0)(typescript@6.0.3))(@rstest/core@0.9.10(core-js@3.42.0))(typescript@6.0.3)':
+  '@rstest/adapter-rslib@0.2.2(@rslib/core@0.21.4(core-js@3.42.0)(typescript@6.0.3))(@rstest/core@0.9.10(core-js@3.42.0))(typescript@6.0.3)':
     dependencies:
-      '@rslib/core': 0.21.3(core-js@3.42.0)(typescript@6.0.3)
+      '@rslib/core': 0.21.4(core-js@3.42.0)(typescript@6.0.3)
       '@rstest/core': 0.9.10(core-js@3.42.0)
     optionalDependencies:
       typescript: 6.0.3
@@ -3970,7 +3970,7 @@ snapshots:
   require-from-string@2.0.2:
     optional: true
 
-  rsbuild-plugin-dts@0.21.3(@rsbuild/core@2.0.5(core-js@3.42.0))(typescript@6.0.3):
+  rsbuild-plugin-dts@0.21.4(@rsbuild/core@2.0.5(core-js@3.42.0))(typescript@6.0.3):
     dependencies:
       '@ast-grep/napi': 0.37.0
       '@rsbuild/core': 2.0.5(core-js@3.42.0)
