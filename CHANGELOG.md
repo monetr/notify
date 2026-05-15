@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.0.4](https://github.com/monetr/notify/compare/notify-v1.0.3...notify-v1.0.4) (2026-05-15)
+
+
+### Dependencies
+
+* **renovate:** update dependency @rsbuild/core to v2.0.5 ([#10](https://github.com/monetr/notify/issues/10)) ([c36fa2f](https://github.com/monetr/notify/commit/c36fa2fd6b14e3316d425783f89d927b20a0d7ff))
+* **renovate:** update dependency @rsdoctor/rspack-plugin to v1.5.10 ([#12](https://github.com/monetr/notify/issues/12)) ([e406230](https://github.com/monetr/notify/commit/e406230d953a584f832f1468d5e60d22fe28fd9d))
+* **renovate:** update dependency @rslib/core to v0.21.4 ([#11](https://github.com/monetr/notify/issues/11)) ([5fb67ce](https://github.com/monetr/notify/commit/5fb67cea58d7b61cc54263696e34bb5de4066ffe))
+* **renovate:** update dependency @types/node to v24.12.3 ([#13](https://github.com/monetr/notify/issues/13)) ([343e0ea](https://github.com/monetr/notify/commit/343e0ea01df3f5add0e8ed950811e8d1003e44e7))
+
+
+### Bug Fixes
+
+* Added safe-area-inset to position and padding of toasts ([e56687d](https://github.com/monetr/notify/commit/e56687df7cbb2a88736e5d320a35567d95ae1f43))
+
+
+### Documentation
+
+* Adding npm link ([fcf7ac1](https://github.com/monetr/notify/commit/fcf7ac10469e6b1e60a10b29d65e5709e0746489))
+* Improve documentation site! ([dbc2d21](https://github.com/monetr/notify/commit/dbc2d21871e31a989d3c0596e1cc52c561aa2f32))
+
 ## [1.0.3](https://github.com/monetr/notify/compare/notify-v1.0.2...notify-v1.0.3) (2026-05-11)
 
 
