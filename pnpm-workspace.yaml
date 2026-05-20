@@ -4,5 +4,10 @@ savePrefix: ""
 preferFrozenLockfile: true
 
 trustPolicy: no-downgrade
+trustPolicyExclude:
+  # @rspress/core (docs) pulls react-render-to-markdown; 19.x dropped its
+  # trusted-publisher signal with no in-range replacement. See
+  # https://github.com/SoonIter/react-render-to-markdown/issues/1
+  - 'react-render-to-markdown@19.0.1'
 minimumReleaseAge: 10080 # 7 days
 minimumReleaseAgeStrict: true
