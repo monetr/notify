@@ -27,17 +27,17 @@ importers:
         specifier: 2.0.11
         version: 2.0.11(@rspack/core@2.0.3(@swc/helpers@0.5.21))(@types/mdast@4.0.4)(@types/react@18.3.28)(core-js@3.42.0)(micromark-util-types@2.0.2)(micromark@4.0.2)
       '@rstest/adapter-rslib':
-        specifier: 0.2.2
-        version: 0.2.2(@rslib/core@0.21.5(core-js@3.42.0)(typescript@6.0.3))(@rstest/core@0.9.10(core-js@3.42.0))(typescript@6.0.3)
+        specifier: 0.10.0
+        version: 0.10.0(@rslib/core@0.21.5(core-js@3.42.0)(typescript@6.0.3))(@rstest/core@0.10.0(core-js@3.42.0))(typescript@6.0.3)
       '@rstest/browser':
-        specifier: 0.9.10
-        version: 0.9.10(@rstest/core@0.9.10(core-js@3.42.0))(playwright@1.60.0)
+        specifier: 0.10.0
+        version: 0.10.0(@rstest/core@0.10.0(core-js@3.42.0))(playwright@1.60.0)
       '@rstest/browser-react':
-        specifier: 0.9.10
-        version: 0.9.10(@rstest/core@0.9.10(core-js@3.42.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.10.0
+        version: 0.10.0(@rstest/core@0.10.0(core-js@3.42.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@rstest/core':
-        specifier: 0.9.10
-        version: 0.9.10(core-js@3.42.0)
+        specifier: 0.10.0
+        version: 0.10.0(core-js@3.42.0)
       '@types/node':
         specifier: 24.12.4
         version: 24.12.4
@@ -447,36 +447,36 @@ packages:
   '@rspress/shared@2.0.11':
     resolution: {integrity: sha512-7l5Pso4s597utJyisVEnd7n/40h053nfE8DwGQMeS8RLGtSwVgxFwNHsSrvQEGtFlLrg2aWWSITqnAVO1wfTew==}
 
-  '@rstest/adapter-rslib@0.2.2':
-    resolution: {integrity: sha512-pDfROoS8EY5mzxEmy9KVcd+Xila3QYeovlygCVmoc5p95qJ+3h+adr+elHFy/OZWUn/GMDHwYfhAR7BHQyQUKA==}
+  '@rstest/adapter-rslib@0.10.0':
+    resolution: {integrity: sha512-QNgVrFSP9190+VoZ+2IlzALxGE+Av46c+8qFFUwmCfGA/uxfJMiiyHX28gmdxGXIYcvjZBRij8a4QJq4Wke8jA==}
     peerDependencies:
       '@rslib/core': '>=0.18.6'
-      '@rstest/core': '>=0.7.7'
+      '@rstest/core': ^0.10.0
       typescript: ^5 || ^6
     peerDependenciesMeta:
       typescript:
         optional: true
 
-  '@rstest/browser-react@0.9.10':
-    resolution: {integrity: sha512-0EQc7/wu/3PMYEffiYiiTcJz8kcOPj5A5Rzu74t7e59DXkUd6k1T7kcSXVaH2plV5kdP9GMXHEZcSz3DCfAWYg==}
+  '@rstest/browser-react@0.10.0':
+    resolution: {integrity: sha512-crf13C07Q8NNrcpieL6liR6oJiH1LPx62tIRsyka3cecUJLLqfKJaFWRj7AN0c2WnQesDxi7/NAAr8Dti3FpJg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
-      '@rstest/core': ^0.9.10
-      react: ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
+      '@rstest/core': ^0.10.0
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
 
-  '@rstest/browser@0.9.10':
-    resolution: {integrity: sha512-vBcftRcGSv+LqG3oeP0mWvU2TNh8ihi7fPO7xXxENj5awW9cMBu0zGYM6H7cByN5pjKv5YItVcH10MDaFtaU3w==}
+  '@rstest/browser@0.10.0':
+    resolution: {integrity: sha512-4FenYRwzd5sV8MdEWIiTC0o7CK6pfj2OH91t6OY3GTsVw02QnBKtXrCYA+k5+fjWIf/NKlNbCgjQpSkBbb5xog==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
-      '@rstest/core': ^0.9.10
+      '@rstest/core': ^0.10.0
       playwright: ^1.49.1
     peerDependenciesMeta:
       playwright:
         optional: true
 
-  '@rstest/core@0.9.10':
-    resolution: {integrity: sha512-JUSUYYXWIHEBUn193u2RglZujvGPv46Blxpl17QFwc0y9vEXe2y/IfGwGrVsJfZz7PaWZ5NnbFf0J55YIIns+g==}
+  '@rstest/core@0.10.0':
+    resolution: {integrity: sha512-TfmMZ/fvGuGCJbOfVE+Fj8mNxs0opSvEaQZm4lkXMZ/Rdvx4d0yIzHSKZ31bOIAUZIiltMXHoTwu8+pwyBHZyg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -1760,10 +1760,6 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  tinypool@2.1.0:
-    resolution: {integrity: sha512-Pugqs6M0m7Lv1I7FtxN4aoyToKg1C4tu+/381vH35y8oENM/Ai7f7C4StcoK4/+BSw9ebcS8jRiVrORFKCALLw==}
-    engines: {node: ^20.0.0 || >=22.0.0}
-
   toggle-selection@1.0.6:
     resolution: {integrity: sha512-BiZS+C1OS8g/q2RRbJmy59xpyghNBqrr6k5L/uKBGRsTfxmu3ffiRnd8mlGPUVayg8pvfi5urfnu8TU7DVOkLQ==}
 
@@ -1891,8 +1887,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  ws@8.20.0:
-    resolution: {integrity: sha512-sAt8BhgNbzCtgGbt2OxmpuryO63ZoDk/sqaB/znQm94T4fCEsy/yV+7CdC1kJhOU9lboAEU7R3kquuycDoibVA==}
+  ws@8.20.1:
+    resolution: {integrity: sha512-It4dO0K5v//JtTXuPkfEOaI3uUN87iYPnqo/ZzqCoG3g8uhA66QUMs/SrM0YK7/NAu+r4LMh/9dq2A7k+rHs+w==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -2391,39 +2387,38 @@ snapshots:
       - '@module-federation/runtime-tools'
       - core-js
 
-  '@rstest/adapter-rslib@0.2.2(@rslib/core@0.21.5(core-js@3.42.0)(typescript@6.0.3))(@rstest/core@0.9.10(core-js@3.42.0))(typescript@6.0.3)':
+  '@rstest/adapter-rslib@0.10.0(@rslib/core@0.21.5(core-js@3.42.0)(typescript@6.0.3))(@rstest/core@0.10.0(core-js@3.42.0))(typescript@6.0.3)':
     dependencies:
       '@rslib/core': 0.21.5(core-js@3.42.0)(typescript@6.0.3)
-      '@rstest/core': 0.9.10(core-js@3.42.0)
+      '@rstest/core': 0.10.0(core-js@3.42.0)
     optionalDependencies:
       typescript: 6.0.3
 
-  '@rstest/browser-react@0.9.10(@rstest/core@0.9.10(core-js@3.42.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@rstest/browser-react@0.10.0(@rstest/core@0.10.0(core-js@3.42.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@rstest/core': 0.9.10(core-js@3.42.0)
+      '@rstest/core': 0.10.0(core-js@3.42.0)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@rstest/browser@0.9.10(@rstest/core@0.9.10(core-js@3.42.0))(playwright@1.60.0)':
+  '@rstest/browser@0.10.0(@rstest/core@0.10.0(core-js@3.42.0))(playwright@1.60.0)':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
-      '@rstest/core': 0.9.10(core-js@3.42.0)
+      '@rstest/core': 0.10.0(core-js@3.42.0)
       convert-source-map: 2.0.0
       open-editor: 6.0.0
       pathe: 2.0.3
       sirv: 3.0.2
-      ws: 8.20.0
+      ws: 8.20.1
     optionalDependencies:
       playwright: 1.60.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@rstest/core@0.9.10(core-js@3.42.0)':
+  '@rstest/core@0.10.0(core-js@3.42.0)':
     dependencies:
       '@rsbuild/core': 2.0.6(core-js@3.42.0)
       '@types/chai': 5.2.3
-      tinypool: 2.1.0
     transitivePeerDependencies:
       - '@module-federation/runtime-tools'
       - core-js
@@ -4114,8 +4109,6 @@ snapshots:
       source-map-support: 0.5.21
     optional: true
 
-  tinypool@2.1.0: {}
-
   toggle-selection@1.0.6: {}
 
   totalist@3.0.1: {}
@@ -4270,7 +4263,7 @@ snapshots:
 
   ws@8.18.3: {}
 
-  ws@8.20.0: {}
+  ws@8.20.1: {}
 
   wsl-utils@0.3.1:
     dependencies:
