@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.0.5](https://github.com/monetr/notify/compare/notify-v1.0.4...notify-v1.0.5) (2026-05-22)
+
+
+### Dependencies
+
+* **renovate:** update dependency @biomejs/biome to v2.4.15 ([#15](https://github.com/monetr/notify/issues/15)) ([187e506](https://github.com/monetr/notify/commit/187e506641411cabbb400f1633389b1162d9eb68))
+* **renovate:** update dependency @rsbuild/core to v2.0.6 ([#22](https://github.com/monetr/notify/issues/22)) ([ff860a0](https://github.com/monetr/notify/commit/ff860a0dfc25b1d1e9891513c5d2806be1218bde))
+* **renovate:** update dependency @rsdoctor/rspack-plugin to v1.5.11 ([#16](https://github.com/monetr/notify/issues/16)) ([0ec98fb](https://github.com/monetr/notify/commit/0ec98fb72ba2a11880dd25d0ad3daca1bc1bd318))
+* **renovate:** update dependency @rslib/core to v0.21.5 ([#23](https://github.com/monetr/notify/issues/23)) ([9b3346b](https://github.com/monetr/notify/commit/9b3346b51e9f4c1c37339341bb5ac441049b57b0))
+* **renovate:** update dependency @rspress/core to v2.0.11 ([#17](https://github.com/monetr/notify/issues/17)) ([a532cf5](https://github.com/monetr/notify/commit/a532cf59318ffe32f9f7066750ca8b9f58cf4de0))
+* **renovate:** update dependency @types/node to v24.12.4 ([#20](https://github.com/monetr/notify/issues/20)) ([feaa946](https://github.com/monetr/notify/commit/feaa946cbd58da1f6e9b3b5d81d0b26735407698))
+* **renovate:** update dependency playwright to v1.60.0 ([#21](https://github.com/monetr/notify/issues/21)) ([a39cb43](https://github.com/monetr/notify/commit/a39cb43b0471e02d867d0b5ebc75166e8a2a104b))
+* **renovate:** update github/codeql-action action to v4.35.4 ([#14](https://github.com/monetr/notify/issues/14)) ([d3aaef3](https://github.com/monetr/notify/commit/d3aaef3dbd200eb72dd39762f3bd7cb61cb51eb6))
+* **renovate:** update github/codeql-action action to v4.35.5 ([#24](https://github.com/monetr/notify/issues/24)) ([5763e87](https://github.com/monetr/notify/commit/5763e8742e9782be67fab05ca4e2f3cad926c5b3))
+* **renovate:** update rstest to v0.10.0 ([#25](https://github.com/monetr/notify/issues/25)) ([87a1501](https://github.com/monetr/notify/commit/87a15019393e585d3328a06580ab333e3dd5331f))
+
+
+### Bug Fixes
+
+* Fixing pnpm settings ([2fed354](https://github.com/monetr/notify/commit/2fed354522d794a6ec31e68ba8c572c452ac5ac9))
+
+
+### Miscellaneous
+
+* Adding pnpm-workspace ([#19](https://github.com/monetr/notify/issues/19)) ([19d60c7](https://github.com/monetr/notify/commit/19d60c70c2c8a5c7234154a0b3d9b85b6d582e64))
+
 ## [1.0.4](https://github.com/monetr/notify/compare/notify-v1.0.3...notify-v1.0.4) (2026-05-15)
 
 
