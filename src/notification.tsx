@@ -1,5 +1,6 @@
 import {
   type CSSProperties,
+  type JSX,
   type ReactNode,
   type PointerEvent as ReactPointerEvent,
   type SyntheticEvent,

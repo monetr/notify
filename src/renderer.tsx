@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { type JSX, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Notifier } from './notifier';

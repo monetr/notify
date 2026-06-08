@@ -1,4 +1,4 @@
-import { StrictMode, useEffect, useState } from 'react';
+import { type JSX, StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { ActionSnackbar } from '../fixtures/ActionSnackbar';

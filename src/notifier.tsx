@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from 'react';
+import { type JSX, type ReactNode, useState } from 'react';
 
 import { Notification } from './notification';
 import type { AnchorOrigin, NotifierAction, SnackbarItem, VariantType } from './types';
