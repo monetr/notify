@@ -1,5 +1,35 @@
 # Changelog
 
+## [1.0.6](https://github.com/monetr/notify/compare/notify-v1.0.5...notify-v1.0.6) (2026-06-12)
+
+
+### Dependencies
+
+* **renovate:** update actions/checkout action to v6.0.3 ([#40](https://github.com/monetr/notify/issues/40)) ([a459caf](https://github.com/monetr/notify/commit/a459caf1f0ef529e29c4d9ba4e9fee80a450ff99))
+* **renovate:** update dependency @biomejs/biome to v2.4.16 ([#33](https://github.com/monetr/notify/issues/33)) ([9ef7a28](https://github.com/monetr/notify/commit/9ef7a28bcfe49f485a35a37b1dc950af18dcf54a))
+* **renovate:** update dependency @rsbuild/core to v2.0.7 ([#29](https://github.com/monetr/notify/issues/29)) ([48f1bbf](https://github.com/monetr/notify/commit/48f1bbf9ab61bb17ee9332bf7f246b06de887ae1))
+* **renovate:** update dependency @rslib/core to v0.22.0 ([#36](https://github.com/monetr/notify/issues/36)) ([bd224d4](https://github.com/monetr/notify/commit/bd224d432647eeaced343a5fc728423eba81e8d1))
+* **renovate:** update dependency @rspress/core to v2.0.13 ([#26](https://github.com/monetr/notify/issues/26)) ([efb6be6](https://github.com/monetr/notify/commit/efb6be663b88aa1e2fcbeb6be273620a003b95ab))
+* **renovate:** update dependency @types/node to v24.13.0 ([#44](https://github.com/monetr/notify/issues/44)) ([cbefbe8](https://github.com/monetr/notify/commit/cbefbe866df8dab5b641bbb5420f84dc785519ad))
+* **renovate:** update github/codeql-action action to v4.36.0 ([#32](https://github.com/monetr/notify/issues/32)) ([bf5c623](https://github.com/monetr/notify/commit/bf5c623b41f430116c13c1911377af435b8ff3ce))
+* **renovate:** update github/codeql-action action to v4.36.1 ([#41](https://github.com/monetr/notify/issues/41)) ([5ea4e35](https://github.com/monetr/notify/commit/5ea4e3553f8ec9d06f7474c19df20d30d3fb5599))
+* **renovate:** update github/codeql-action action to v4.36.2 ([#45](https://github.com/monetr/notify/issues/45)) ([8f85d2d](https://github.com/monetr/notify/commit/8f85d2d9e94974f2983635f11cb61ea79d698d20))
+* **renovate:** update pnpm to v10.34.1 ([#34](https://github.com/monetr/notify/issues/34)) ([a898e76](https://github.com/monetr/notify/commit/a898e76b0f1fd3ec5daf2c291832b85eb4e7dab6))
+* **renovate:** update react monorepo ([#39](https://github.com/monetr/notify/issues/39)) ([40bee43](https://github.com/monetr/notify/commit/40bee43e076cef4a777e25e857814e9966531924))
+* **renovate:** update react monorepo to v18.3.29 ([#27](https://github.com/monetr/notify/issues/27)) ([8638832](https://github.com/monetr/notify/commit/8638832e50d1ac6662b30d9eef697388c6ff5744))
+* **renovate:** update rsbuild ([#35](https://github.com/monetr/notify/issues/35)) ([ec030a9](https://github.com/monetr/notify/commit/ec030a9b2dac941e20f84a7b96c1b1cfdf874026))
+* **renovate:** update rsbuild ([#38](https://github.com/monetr/notify/issues/38)) ([30b79a9](https://github.com/monetr/notify/commit/30b79a9f7c6e448c7921bb29e46e049ddbfc8a5a))
+* **renovate:** update rsbuild to v2.0.10 ([#42](https://github.com/monetr/notify/issues/42)) ([ac67dc8](https://github.com/monetr/notify/commit/ac67dc8e754fc9bc6aaea18a69dc7682cac0659b))
+* **renovate:** update rsbuild to v2.0.11 ([#43](https://github.com/monetr/notify/issues/43)) ([e876a25](https://github.com/monetr/notify/commit/e876a259e5d3688ae72a049d476621097ab77326))
+* **renovate:** update rstest to v0.10.1 ([#28](https://github.com/monetr/notify/issues/28)) ([114fba7](https://github.com/monetr/notify/commit/114fba7f80bd70e9db627d1886a4b33651ab97d1))
+* **renovate:** update rstest to v0.10.2 ([#31](https://github.com/monetr/notify/issues/31)) ([1e774c6](https://github.com/monetr/notify/commit/1e774c6b4dd18d419a93845c33102d54d81cdccb))
+* **renovate:** update rstest to v0.10.3 ([#37](https://github.com/monetr/notify/issues/37)) ([a5dbbdd](https://github.com/monetr/notify/commit/a5dbbdd8975b0966930f419262c166dd3da8b932))
+
+
+### Refactor
+
+* Migrating entirely to react 19 ([050f044](https://github.com/monetr/notify/commit/050f0446103b7317f7dde428a1d2f29c246adf2c))
+
 ## [1.0.5](https://github.com/monetr/notify/compare/notify-v1.0.4...notify-v1.0.5) (2026-05-22)
 
 
