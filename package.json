@@ -55,9 +55,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.16",
-    "@rsbuild/core": "2.0.11",
+    "@rsbuild/core": "2.0.12",
     "@rsbuild/plugin-react": "2.0.1",
-    "@rsdoctor/rspack-plugin": "1.5.12",
+    "@rsdoctor/rspack-plugin": "1.5.13",
     "@rslib/core": "0.22.0",
     "@rspress/core": "2.0.14",
     "@rstest/adapter-rslib": "0.10.3",
