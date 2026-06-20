@@ -76,7 +76,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
-  "packageManager": "pnpm@10.34.2",
+  "packageManager": "pnpm@10.34.3",
   "pnpm": {
     "ignoredBuiltDependencies": [
       "core-js",
