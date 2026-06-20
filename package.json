@@ -54,7 +54,7 @@
     "url": "https://github.com/monetr/notify/issues"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.16",
+    "@biomejs/biome": "2.5.0",
     "@rsbuild/core": "2.0.12",
     "@rsbuild/plugin-react": "2.0.1",
     "@rsdoctor/rspack-plugin": "1.5.13",
