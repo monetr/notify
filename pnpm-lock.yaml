@@ -27,17 +27,17 @@ importers:
         specifier: 2.0.14
         version: 2.0.14(@rspack/core@2.0.8(@swc/helpers@0.5.23))(@types/mdast@4.0.4)(@types/react@19.2.17)(core-js@3.42.0)(micromark-util-types@2.0.2)(micromark@4.0.2)
       '@rstest/adapter-rslib':
-        specifier: 0.10.3
-        version: 0.10.3(@rslib/core@0.22.1(core-js@3.42.0)(typescript@6.0.3))(@rstest/core@0.10.3(core-js@3.42.0))(typescript@6.0.3)
+        specifier: 0.10.4
+        version: 0.10.4(@rslib/core@0.22.1(core-js@3.42.0)(typescript@6.0.3))(@rstest/core@0.10.4(core-js@3.42.0))(typescript@6.0.3)
       '@rstest/browser':
-        specifier: 0.10.3
-        version: 0.10.3(@rstest/core@0.10.3(core-js@3.42.0))(playwright@1.60.0)
+        specifier: 0.10.4
+        version: 0.10.4(@rstest/core@0.10.4(core-js@3.42.0))(playwright@1.60.0)
       '@rstest/browser-react':
-        specifier: 0.10.3
-        version: 0.10.3(@rstest/core@0.10.3(core-js@3.42.0))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: 0.10.4
+        version: 0.10.4(@rstest/core@0.10.4(core-js@3.42.0))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@rstest/core':
-        specifier: 0.10.3
-        version: 0.10.3(core-js@3.42.0)
+        specifier: 0.10.4
+        version: 0.10.4(core-js@3.42.0)
       '@types/node':
         specifier: 24.13.2
         version: 24.13.2
@@ -447,36 +447,36 @@ packages:
   '@rspress/shared@2.0.14':
     resolution: {integrity: sha512-sCe9tAo+s9tR4DmFSjMyHOxQvhzTSYXkkMUfVEo5w+uMCNXXGAIC6D0xAVDMHq1jIFF9ix47VxzlCo+CYNS14g==}
 
-  '@rstest/adapter-rslib@0.10.3':
-    resolution: {integrity: sha512-AuK+NFUKxk8Ijc2Op5wNDJC0zQCQoEh41RTtWzTSK4NrHF9joB0rj/fwRGzehGSwmmd4pMe1btuLe9QfYJX1bQ==}
+  '@rstest/adapter-rslib@0.10.4':
+    resolution: {integrity: sha512-mADrkKvgmRiUCz3PBoEOteQboqEj4BBhQnGc20WBMKLe+hvwHUJx1zqQvpSdwWXrFiXXN9rMIIAs9xrCLSJZJw==}
     peerDependencies:
       '@rslib/core': '>=0.18.6'
-      '@rstest/core': ^0.10.3
+      '@rstest/core': ^0.10.4
       typescript: ^5 || ^6
     peerDependenciesMeta:
       typescript:
         optional: true
 
-  '@rstest/browser-react@0.10.3':
-    resolution: {integrity: sha512-4RAmZBTmpc31cJo0qVnprMmHNGyAT/zm9fkKY6E7XZePGIkx6nNfn/8z5aOce8xgUk+rjInqK7U4OTHeZpTHJQ==}
+  '@rstest/browser-react@0.10.4':
+    resolution: {integrity: sha512-VWF78V/U8SIA0gvSCT0ApkzIYm9OincIQrkNybqfRZ7JCeSFPSSzYzkRmAoKtcuJThBuSF4ok7sqKnRJF5LbuQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
-      '@rstest/core': ^0.10.3
+      '@rstest/core': ^0.10.4
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
 
-  '@rstest/browser@0.10.3':
-    resolution: {integrity: sha512-I1iJEiAZx1FCYMrP/jYB1Nz0r4wYL6tvd6w4tlx/3SandW7OBq2w1tY9B6fR9gruSAQ70+ar3Deue0Wx9RLaIw==}
+  '@rstest/browser@0.10.4':
+    resolution: {integrity: sha512-79ZGQc1M7VwbM5wDZBYXJw6Npm+LaXri0mSQxovFC4SDzbBLyFQrJitBub7qNJ13s2Yz3W/v8saMg5YnHJESJA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
-      '@rstest/core': ^0.10.3
+      '@rstest/core': ^0.10.4
       playwright: ^1.49.1
     peerDependenciesMeta:
       playwright:
         optional: true
 
-  '@rstest/core@0.10.3':
-    resolution: {integrity: sha512-UiJ1td7KszgAfPVroNKnQQ60S0EeyHdPZArng08ffMMCmwo/6aeLmjk4s+W/ojR5iredelM9Z0Yc01vN3kSaeA==}
+  '@rstest/core@0.10.4':
+    resolution: {integrity: sha512-HuIINPkS5h5+rUGyOBkaFV/zYdMKTYWQNTTJhNqylMKPffvv1SAa4glLpjoS0iGmX1I8US/X6KDrdFIU/VfvKw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -2369,23 +2369,23 @@ snapshots:
       - '@module-federation/runtime-tools'
       - core-js
 
-  '@rstest/adapter-rslib@0.10.3(@rslib/core@0.22.1(core-js@3.42.0)(typescript@6.0.3))(@rstest/core@0.10.3(core-js@3.42.0))(typescript@6.0.3)':
+  '@rstest/adapter-rslib@0.10.4(@rslib/core@0.22.1(core-js@3.42.0)(typescript@6.0.3))(@rstest/core@0.10.4(core-js@3.42.0))(typescript@6.0.3)':
     dependencies:
       '@rslib/core': 0.22.1(core-js@3.42.0)(typescript@6.0.3)
-      '@rstest/core': 0.10.3(core-js@3.42.0)
+      '@rstest/core': 0.10.4(core-js@3.42.0)
     optionalDependencies:
       typescript: 6.0.3
 
-  '@rstest/browser-react@0.10.3(@rstest/core@0.10.3(core-js@3.42.0))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@rstest/browser-react@0.10.4(@rstest/core@0.10.4(core-js@3.42.0))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
-      '@rstest/core': 0.10.3(core-js@3.42.0)
+      '@rstest/core': 0.10.4(core-js@3.42.0)
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
 
-  '@rstest/browser@0.10.3(@rstest/core@0.10.3(core-js@3.42.0))(playwright@1.60.0)':
+  '@rstest/browser@0.10.4(@rstest/core@0.10.4(core-js@3.42.0))(playwright@1.60.0)':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
-      '@rstest/core': 0.10.3(core-js@3.42.0)
+      '@rstest/core': 0.10.4(core-js@3.42.0)
       convert-source-map: 2.0.0
       open-editor: 6.0.0
       pathe: 2.0.3
@@ -2397,7 +2397,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@rstest/core@0.10.3(core-js@3.42.0)':
+  '@rstest/core@0.10.4(core-js@3.42.0)':
     dependencies:
       '@rsbuild/core': 2.0.12(core-js@3.42.0)
       '@types/chai': 5.2.3
