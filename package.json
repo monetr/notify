@@ -1,6 +1,6 @@
 {
   "name": "@monetr/notify",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Notification/toast component for React.",
   "type": "module",
   "main": "./dist/index.js",
