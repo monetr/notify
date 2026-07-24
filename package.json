@@ -59,7 +59,7 @@
     "@rsbuild/plugin-react": "2.0.1",
     "@rsdoctor/rspack-plugin": "1.5.13",
     "@rslib/core": "0.23.0",
-    "@rspress/core": "2.0.14",
+    "@rspress/core": "2.0.18",
     "@rstest/adapter-rslib": "0.10.6",
     "@rstest/browser": "0.10.6",
     "@rstest/browser-react": "0.10.6",
