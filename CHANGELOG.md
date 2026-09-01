@@ -1,5 +1,46 @@
 # Changelog
 
+## [1.0.7](https://github.com/monetr/notify/compare/notify-v1.0.6...notify-v1.0.7) (2026-09-01)
+
+
+### Dependencies
+
+* **renovate:** update actions/attest-build-provenance action to v4.1.1 ([#65](https://github.com/monetr/notify/issues/65)) ([b86b666](https://github.com/monetr/notify/commit/b86b6665c335cb21d9827246489d082fc1cf6ae5))
+* **renovate:** update actions/checkout action to v6.1.0 ([#75](https://github.com/monetr/notify/issues/75)) ([369f1ed](https://github.com/monetr/notify/commit/369f1ed7189c359de50a098704173457eead1ac0))
+* **renovate:** update actions/setup-node action to v6.5.0 ([#77](https://github.com/monetr/notify/issues/77)) ([760ebcc](https://github.com/monetr/notify/commit/760ebcc75ce30cc15e98e30d22f8edf89d98d1d7))
+* **renovate:** update dependency @biomejs/biome to v2.5.0 ([#56](https://github.com/monetr/notify/issues/56)) ([d081541](https://github.com/monetr/notify/commit/d0815410a4dd5707c388278e56dd9508bacc48ec))
+* **renovate:** update dependency @biomejs/biome to v2.5.3 ([#66](https://github.com/monetr/notify/issues/66)) ([0644f70](https://github.com/monetr/notify/commit/0644f7064e92957a8d1ef78adb3fd53a5ef64c2a))
+* **renovate:** update dependency @biomejs/biome to v2.5.7 ([#70](https://github.com/monetr/notify/issues/70)) ([579713b](https://github.com/monetr/notify/commit/579713b2306faec547a7346f2fee13eff5b39297))
+* **renovate:** update dependency @rslib/core to v0.22.1 ([#55](https://github.com/monetr/notify/issues/55)) ([737fdb8](https://github.com/monetr/notify/commit/737fdb80caae0cacc79d66cd471fb5da2c1e07dd))
+* **renovate:** update dependency @rslib/core to v0.23.0 ([#61](https://github.com/monetr/notify/issues/61)) ([dc8494a](https://github.com/monetr/notify/commit/dc8494a318d7bb3194b09583b1e3c690583e0e3c))
+* **renovate:** update dependency @rslib/core to v0.23.2 ([#67](https://github.com/monetr/notify/issues/67)) ([e554a43](https://github.com/monetr/notify/commit/e554a4377fc9dd826996dcf6a1f7b4e3cddcef47))
+* **renovate:** update dependency @rspress/core to v2.0.14 ([#48](https://github.com/monetr/notify/issues/48)) ([c89fa67](https://github.com/monetr/notify/commit/c89fa6700e20173e5a65c47589af2b80281b7052))
+* **renovate:** update dependency @rspress/core to v2.0.20 ([#68](https://github.com/monetr/notify/issues/68)) ([b73514d](https://github.com/monetr/notify/commit/b73514d9d8da8378dd2fc4f033935089d075aa88))
+* **renovate:** update dependency @types/node to v24.13.1 ([#46](https://github.com/monetr/notify/issues/46)) ([cc76f40](https://github.com/monetr/notify/commit/cc76f40d82f1fdf7ef57590285162137c1fe2c7d))
+* **renovate:** update dependency @types/node to v24.13.2 ([#51](https://github.com/monetr/notify/issues/51)) ([4eeecaf](https://github.com/monetr/notify/commit/4eeecaf34c467d32ce5497c49f5f83f751730c61))
+* **renovate:** update dependency playwright to v1.62.1 ([#72](https://github.com/monetr/notify/issues/72)) ([42fc927](https://github.com/monetr/notify/commit/42fc9271a50c7b40e7447c960c62cb71871588d5))
+* **renovate:** update github/codeql-action action to v4.37.5 ([#78](https://github.com/monetr/notify/issues/78)) ([561e316](https://github.com/monetr/notify/commit/561e3165e6ab76ba651a07e647b939a9ab226ca7))
+* **renovate:** update playwright monorepo ([#58](https://github.com/monetr/notify/issues/58)) ([e9bddf5](https://github.com/monetr/notify/commit/e9bddf520babef1525ae25c1d82e8e23d16d7295))
+* **renovate:** update pnpm to v10.34.2 ([#49](https://github.com/monetr/notify/issues/49)) ([c491f02](https://github.com/monetr/notify/commit/c491f02afd2a418c3c39aec7ce0a573a88c66f32))
+* **renovate:** update pnpm to v10.34.3 ([#53](https://github.com/monetr/notify/issues/53)) ([da9f813](https://github.com/monetr/notify/commit/da9f8132ebce0837b7dfc813e998141ca53c04f4))
+* **renovate:** update pnpm to v10.34.4 ([#63](https://github.com/monetr/notify/issues/63)) ([e64b715](https://github.com/monetr/notify/commit/e64b7152d691d1f7bf608d7ecd613cfb6dae1c5d))
+* **renovate:** update pnpm to v10.34.5 ([#73](https://github.com/monetr/notify/issues/73)) ([84ee7d8](https://github.com/monetr/notify/commit/84ee7d8d2856600c8cc6fdbedcb97daaddc2df0e))
+* **renovate:** update react monorepo ([#74](https://github.com/monetr/notify/issues/74)) ([30e96b7](https://github.com/monetr/notify/commit/30e96b7b023d844aa83a49f245a2f9e3e0a973e9))
+* **renovate:** update react monorepo to v19.2.17 ([#47](https://github.com/monetr/notify/issues/47)) ([68f83ee](https://github.com/monetr/notify/commit/68f83ee032df8d34b8b74400ce95eece72665fbe))
+* **renovate:** update rsbuild ([#52](https://github.com/monetr/notify/issues/52)) ([9115222](https://github.com/monetr/notify/commit/91152228223c1ddf4617240e20f0bc0fe33f52fd))
+* **renovate:** update rsbuild ([#59](https://github.com/monetr/notify/issues/59)) ([160a669](https://github.com/monetr/notify/commit/160a669278e72f96f6e06ad52a64bb9eaecd7603))
+* **renovate:** update rsbuild ([#79](https://github.com/monetr/notify/issues/79)) ([fc1eb6b](https://github.com/monetr/notify/commit/fc1eb6b4db8e078197b574118245dcdd6a79c2a8))
+* **renovate:** update rsbuild to v2.0.14 ([#57](https://github.com/monetr/notify/issues/57)) ([49497db](https://github.com/monetr/notify/commit/49497db86c5d7e189e475fe78fd94311c47f41f9))
+* **renovate:** update rstest to v0.10.4 ([#54](https://github.com/monetr/notify/issues/54)) ([31f2748](https://github.com/monetr/notify/commit/31f27489dfb702a805ec04e3e1b61258a0efed4e))
+* **renovate:** update rstest to v0.10.5 ([#60](https://github.com/monetr/notify/issues/60)) ([2fac626](https://github.com/monetr/notify/commit/2fac6268642b3667fcf583c4f53f20f8dae89416))
+* **renovate:** update rstest to v0.10.6 ([#64](https://github.com/monetr/notify/issues/64)) ([8bf6411](https://github.com/monetr/notify/commit/8bf6411d1780e8856a1c9b253533787f8e4d4ae2))
+* **renovate:** update rstest to v0.11.6 ([#80](https://github.com/monetr/notify/issues/80)) ([236c875](https://github.com/monetr/notify/commit/236c8759d8ffc00465f6b390420ec86e16cd5410))
+
+
+### Miscellaneous
+
+* Updating renovate config ([329ae2d](https://github.com/monetr/notify/commit/329ae2d4e8e2b7f84e5f638c9c6b1e0c3ed1d2fc))
+
 ## [1.0.6](https://github.com/monetr/notify/compare/notify-v1.0.5...notify-v1.0.6) (2026-06-12)
 
 
